@@ -2,7 +2,7 @@
   "name": "مواقيت الصلاة",
   "short_name": "الصلاة",
   "description": "مواقيت الصلاة مع الأذان التلقائي",
-  "start_url": "./prayer_times.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0a1628",
   "theme_color": "#c9a84c",
