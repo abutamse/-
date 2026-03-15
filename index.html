@@ -2,8 +2,15 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>مواقيت الصلاة</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#c9a84c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="مواقيت الصلاة">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -417,6 +424,8 @@ const PRAYERS_META = [
     <span class="chip on" id="muezzinChip"  onclick="togglePanel('muezzinPanel')">🎙️ المؤذن</span>
     <span class="chip on" id="settingsChip" onclick="togglePanel('settingsPanel')">⚙️ الإعدادات</span>
     <span class="chip on" id="adjChip"      onclick="togglePanel('adjPanel')">⏱ ضبط الأوقات</span>
+    <span class="chip"    id="bgBtn"        onclick="enableBgNotifications()">🔕 إشعارات الخلفية</span>
+    <span class="chip"    id="installBtn"   onclick="installApp()" style="display:none;">📲 تثبيت التطبيق</span>
   </div>
 
   <!-- MUEZZIN PANEL -->
@@ -889,6 +898,86 @@ buildSelects();
 loadMuezzinAudio();
 updateAll();
 setInterval(updateAll,1000);
+
+/* ══════════════════════════════════════════════════════════
+   PWA — Service Worker + إشعارات الخلفية
+══════════════════════════════════════════════════════════ */
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js')
+    .then(reg=>console.log('SW registered'))
+    .catch(err=>console.log('SW error',err));
+
+  /* استقبال أمر تشغيل الأذان من الإشعار */
+  navigator.serviceWorker.addEventListener('message',e=>{
+    if(e.data?.type==='PLAY_AZAN'){
+      const meta=PRAYERS_META.find(p=>p.key===e.data.key);
+      if(meta) playAzan(meta.ar,e.data.key);
+    }
+  });
+}
+
+async function requestNotifPermission(){
+  if(!('Notification' in window)) return false;
+  if(Notification.permission==='granted') return true;
+  return (await Notification.requestPermission())==='granted';
+}
+
+async function schedulePrayersInSW(){
+  if(!('serviceWorker' in navigator)) return;
+  const reg=await navigator.serviceWorker.ready;
+  if(!reg.active) return;
+  const times=calcTimes();
+  const now=new Date();
+  const prayers=[];
+  PRAYERS_META.forEach(p=>{
+    if(p.key==='sunrise'||!S.notify[p.key]) return;
+    const ts=f2s(times[p.key]);
+    if(ts==='--:--') return;
+    const[h,m]=ts.split(':').map(Number);
+    const pt=new Date(now); pt.setHours(h,m,0,0);
+    if(pt.getTime()>Date.now()+30000)
+      prayers.push({key:p.key,name:p.ar,timeMs:pt.getTime()});
+  });
+  reg.active.postMessage({type:'SCHEDULE_PRAYERS',prayers});
+}
+
+async function enableBgNotifications(){
+  const ok=await requestNotifPermission();
+  if(ok){
+    await schedulePrayersInSW();
+    showToast('✓ سيُرفع الأذان حتى لو المتصفح في الخلفية');
+    const btn=document.getElementById('bgBtn');
+    if(btn){btn.textContent='🔔 الإشعارات مفعّلة';btn.classList.add('on');}
+  } else {
+    showToast('✗ يرجى السماح بالإشعارات من إعدادات المتصفح');
+  }
+}
+
+/* جدولة تلقائية كل دقيقة */
+setInterval(()=>{
+  if(Notification.permission==='granted'&&S.azanOn) schedulePrayersInSW();
+},60000);
+setTimeout(()=>{
+  if(Notification.permission==='granted'&&S.azanOn) schedulePrayersInSW();
+},2000);
+
+/* زر تثبيت التطبيق */
+let _installPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault(); _installPrompt=e;
+  const b=document.getElementById('installBtn');
+  if(b) b.style.display='flex';
+});
+async function installApp(){
+  if(!_installPrompt) return;
+  _installPrompt.prompt();
+  const r=await _installPrompt.userChoice;
+  if(r.outcome==='accepted') showToast('تم تثبيت التطبيق ✓');
+  _installPrompt=null;
+  const b=document.getElementById('installBtn');
+  if(b) b.style.display='none';
+}
 </script>
 </body>
 </html>
