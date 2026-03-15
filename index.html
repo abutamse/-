@@ -26,56 +26,54 @@ body {
   background: linear-gradient(160deg, var(--bg1) 0%, var(--bg2) 60%, #0d1f3c 100%);
   min-height: 100vh;
   color: var(--gold-light);
-  position: relative;
   overflow-x: hidden;
 }
 
-/* Stars */
 .star {
-  position: fixed;
-  border-radius: 50%;
-  background: #fff;
-  pointer-events: none;
-  z-index: 0;
+  position: fixed; border-radius: 50%; background: #fff;
+  pointer-events: none; z-index: 0;
   animation: twinkle var(--dur,3s) infinite alternate;
 }
 @keyframes twinkle {
   0%  { opacity:.15; transform:scale(1); }
-  100%{ opacity:.7;  transform:scale(1.4); }
+  100%{ opacity:.75; transform:scale(1.4); }
 }
 
 .wrap {
-  position: relative;
-  z-index: 1;
-  max-width: 480px;
-  margin: 0 auto;
+  position: relative; z-index: 1;
+  max-width: 480px; margin: 0 auto;
   padding: 20px 16px 110px;
 }
 
-/* ─── HEADER ─────────────────────────── */
+/* HEADER */
 .header { text-align:center; padding:20px 0 14px; }
-.header .moon { font-size:50px; display:block; margin-bottom:6px;
-  filter: drop-shadow(0 0 18px rgba(232,213,163,.45)); }
-.header h1 { font-family:'Amiri',serif; font-size:30px; color:var(--gold-light);
-  text-shadow:0 0 22px rgba(232,213,163,.35); margin-bottom:3px; }
+.header .moon {
+  font-size:50px; display:block; margin-bottom:6px;
+  filter: drop-shadow(0 0 18px rgba(232,213,163,.45));
+}
+.header h1 {
+  font-family:'Amiri',serif; font-size:30px; color:var(--gold-light);
+  text-shadow:0 0 22px rgba(232,213,163,.35); margin-bottom:3px;
+}
 .date-gr { font-size:13px; color:var(--blue-dim); margin-bottom:2px; }
 .date-hi { font-family:'Amiri',serif; font-size:15px; color:var(--gold); margin-bottom:12px; opacity:.85; }
 
-/* ─── NEXT PRAYER ─────────────────────── */
+/* NEXT PRAYER */
 .next-card {
   background: linear-gradient(135deg,rgba(232,213,163,.10),rgba(100,140,200,.10));
   border:1px solid rgba(232,213,163,.22);
   border-radius:20px; padding:20px; margin:0 0 14px; text-align:center;
-  backdrop-filter:blur(8px);
 }
 .next-lbl { font-size:11px; color:var(--blue-dim); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
 .next-name { font-family:'Amiri',serif; font-size:34px; color:var(--gold-light); margin-bottom:4px; }
-.countdown { font-size:44px; font-weight:700; color:var(--gold); letter-spacing:3px;
+.countdown {
+  font-size:44px; font-weight:700; color:var(--gold); letter-spacing:3px;
   text-shadow:0 0 28px rgba(201,168,76,.38); margin:6px 0 2px;
-  font-variant-numeric:tabular-nums; }
+  font-variant-numeric:tabular-nums;
+}
 .cdown-lbl { font-size:11px; color:var(--blue-dim); }
 
-/* ─── AZAN STATUS ─────────────────────── */
+/* AZAN BAR */
 .azan-bar {
   display:flex; align-items:center; gap:10px;
   background:rgba(0,0,0,.28); border:1px solid rgba(201,168,76,.25);
@@ -92,7 +90,7 @@ body {
 }
 .stop-btn:hover { background:rgba(255,80,80,.26); }
 
-/* ─── TOOLBAR ─────────────────────────── */
+/* TOOLBAR */
 .toolbar { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:12px; }
 .chip {
   background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.11);
@@ -101,7 +99,7 @@ body {
 }
 .chip:hover, .chip.on { background:var(--gold-dim); border-color:rgba(201,168,76,.38); color:var(--gold); }
 
-/* ─── PRAYERS LIST ────────────────────── */
+/* PRAYERS LIST */
 .prayers { display:flex; flex-direction:column; gap:7px; margin-bottom:14px; }
 .pcard {
   display:flex; align-items:center; justify-content:space-between;
@@ -125,14 +123,13 @@ body {
 .pcard.active .ptime { color:var(--gold); }
 .notif-btn {
   background:none; border:1px solid rgba(255,255,255,.14); border-radius:8px;
-  padding:4px 8px; cursor:pointer; color:var(--blue-dim); font-size:14px;
-  transition:all .2s; font-family:'Cairo',sans-serif;
+  padding:4px 8px; cursor:pointer; color:var(--blue-dim); font-size:14px; transition:all .2s;
 }
 .notif-btn.on { background:var(--gold-dim); border-color:rgba(201,168,76,.38); color:var(--gold); }
 
-/* ─── SETTINGS PANEL ──────────────────── */
+/* PANEL */
 .panel {
-  background:rgba(5,14,30,.82); border:1px solid rgba(255,255,255,.11);
+  background:rgba(5,14,30,.88); border:1px solid rgba(255,255,255,.11);
   border-radius:18px; padding:18px; margin-bottom:14px;
   backdrop-filter:blur(12px); display:none;
 }
@@ -143,22 +140,48 @@ body {
   border-bottom:1px solid rgba(201,168,76,.18); padding-bottom:10px;
 }
 
-/* Country / city selects */
+/* MUEZZIN GRID */
+.muezzin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.muezzin-card {
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10);
+  border-radius: 12px; padding: 11px 12px; cursor: pointer; transition: all .2s; text-align: center;
+}
+.muezzin-card:hover { background: rgba(201,168,76,.10); border-color: rgba(201,168,76,.28); }
+.muezzin-card.selected {
+  background: rgba(201,168,76,.15); border-color: rgba(201,168,76,.5);
+  box-shadow: 0 0 12px rgba(201,168,76,.15);
+}
+.muezzin-icon { font-size:22px; display:block; margin-bottom:5px; }
+.muezzin-name { font-size:12px; color:var(--gold-light); font-weight:600; margin-bottom:2px; line-height:1.3; }
+.muezzin-sub  { font-size:11px; color:var(--blue-dim); }
+
+/* FILE STATUS */
+.file-status {
+  display: flex; align-items: center; gap:8px;
+  font-size:12px; padding:6px 10px; border-radius:8px; margin-bottom:5px;
+}
+.file-status.ok   { background:rgba(100,200,100,.09); color:#90d490; border:1px solid rgba(100,200,100,.2); }
+.file-status.miss { background:rgba(255,100,100,.07); color:#ff9090; border:1px solid rgba(255,100,100,.18); }
+.file-status.chk  { background:rgba(255,255,255,.04); color:var(--blue-dim); border:1px solid rgba(255,255,255,.08); }
+
+/* SELECTS / INPUTS */
 .sel-row { display:flex; gap:8px; margin-bottom:10px; }
-.sel-row label { font-size:12px; color:var(--blue-dim); margin-bottom:4px; display:block; }
 .sel-wrap { flex:1; }
-select, input[type=number], input[type=text] {
+label.lbl { font-size:12px; color:var(--blue-dim); margin-bottom:4px; display:block; }
+select, input[type=number] {
   width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
   border-radius:10px; padding:9px 12px; color:var(--gold-light);
-  font-family:'Cairo',sans-serif; font-size:13px; appearance:none;
-  cursor:pointer; transition:border .2s;
+  font-family:'Cairo',sans-serif; font-size:13px; appearance:none; cursor:pointer;
 }
 select:focus, input:focus { outline:none; border-color:rgba(201,168,76,.5); }
 select option { background:#1a2a4a; color:var(--gold-light); }
 
-/* Time adjust sliders */
-.adj-section { margin-top:14px; border-top:1px solid rgba(255,255,255,.07); padding-top:14px; }
-.adj-title { font-size:13px; color:var(--blue-dim); margin-bottom:10px; text-align:center; }
+/* ADJ SLIDERS */
 .adj-row { display:flex; align-items:center; gap:10px; margin-bottom:9px; }
 .adj-lbl { font-family:'Amiri',serif; font-size:16px; color:var(--gold-light); width:60px; flex-shrink:0; }
 .adj-val { font-size:13px; color:var(--gold); width:46px; text-align:center; flex-shrink:0; }
@@ -168,153 +191,199 @@ input[type=range] {
 }
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance:none; width:16px; height:16px; border-radius:50%;
-  background:var(--gold); cursor:pointer; margin-top:-6px;
-  box-shadow:0 0 6px rgba(201,168,76,.5);
+  background:var(--gold); cursor:pointer; margin-top:-6px; box-shadow:0 0 6px rgba(201,168,76,.5);
 }
 input[type=range]::-moz-range-thumb {
   width:16px; height:16px; border-radius:50%; background:var(--gold); cursor:pointer; border:none;
 }
 
-/* Method selector */
-.method-sel { margin-top:10px; }
-
-/* Apply button */
+/* BUTTONS */
 .apply-btn {
   width:100%; margin-top:12px;
   background:linear-gradient(135deg,rgba(201,168,76,.28),rgba(201,168,76,.14));
   border:1px solid rgba(201,168,76,.4); border-radius:11px; padding:11px;
-  color:var(--gold); font-family:'Cairo',sans-serif; font-size:14px;
-  cursor:pointer; transition:all .2s;
+  color:var(--gold); font-family:'Cairo',sans-serif; font-size:14px; cursor:pointer; transition:all .2s;
 }
-.apply-btn:hover { background:linear-gradient(135deg,rgba(201,168,76,.38),rgba(201,168,76,.22)); }
+.apply-btn:hover { background:linear-gradient(135deg,rgba(201,168,76,.4),rgba(201,168,76,.24)); }
+.test-btn {
+  width:100%; margin-top:8px;
+  background:rgba(100,180,100,.10); border:1px solid rgba(100,180,100,.3);
+  border-radius:11px; padding:9px; color:#90d490;
+  font-family:'Cairo',sans-serif; font-size:13px; cursor:pointer; transition:all .2s;
+}
+.test-btn:hover { background:rgba(100,180,100,.20); }
 
-.footer-note { text-align:center; font-size:11px; color:rgba(143,175,212,.5); margin-top:8px; }
+.footer-note { text-align:center; font-size:11px; color:rgba(143,175,212,.45); margin-top:8px; }
+.folder-note {
+  background:rgba(201,168,76,.07); border:1px solid rgba(201,168,76,.18);
+  border-radius:10px; padding:10px 12px; margin-top:10px;
+  font-size:12px; color:var(--blue-dim); line-height:1.8;
+  font-family: monospace;
+}
+.folder-note strong { color:var(--gold); }
 </style>
 </head>
 <body>
 
-<!-- ─── PRAYERS DATA ─────────────────────────────────────────── -->
+<!-- ══════════════ DATA ══════════════ -->
 <script>
+/*
+ ╔══════════════════════════════════════════════════════════════╗
+ ║  هيكل المجلدات المطلوب (بجانب ملف HTML)                    ║
+ ║                                                              ║
+ ║  📁 (مجلد الـ HTML)                                         ║
+ ║    ├── prayer_times.html                                     ║
+ ║    └── 📁 muezzins/                                          ║
+ ║          ├── 📁 abdulbasit/                                  ║
+ ║          │     ├── fajr.mp3                                  ║
+ ║          │     ├── dhuhr.mp3                                 ║
+ ║          │     ├── asr.mp3                                   ║
+ ║          │     ├── maghrib.mp3                               ║
+ ║          │     └── isha.mp3                                  ║
+ ║          ├── 📁 makkah/    (نفس الملفات الخمسة)             ║
+ ║          ├── 📁 madinah/                                     ║
+ ║          ├── 📁 mishari/                                     ║
+ ║          └── 📁 custom/    (مؤذن تختاره أنت)                ║
+ ╚══════════════════════════════════════════════════════════════╝
+*/
+
+/* ══ المؤذنون ══ */
+const MUEZZINS = [
+  { id:'abdulbasit', name:'عبد الباسط',        sub:'مصر',            icon:'🎙️', folder:'muezzins/abdulbasit' },
+  { id:'makkah',     name:'أذان مكة',           sub:'الحرم المكي',    icon:'🕋', folder:'muezzins/makkah'     },
+  { id:'madinah',    name:'أذان المدينة',        sub:'المسجد النبوي',  icon:'🌿', folder:'muezzins/madinah'    },
+  { id:'mishari',    name:'مشاري العفاسي',       sub:'الكويت',         icon:'🌙', folder:'muezzins/mishari'    },
+  { id:'custom',     name:'مؤذن مخصص',          sub:'أضف ملفاتك',     icon:'➕', folder:'muezzins/custom'     },
+];
+
+/* أسماء ملفات الأذان — ثابتة لكل المؤذنين */
+const AZAN_FILES = {
+  fajr:    'fajr.mp3',
+  dhuhr:   'dhuhr.mp3',
+  asr:     'asr.mp3',
+  maghrib: 'maghrib.mp3',
+  isha:    'isha.mp3',
+};
+
+/* ══ المدن ══ */
 const CITIES = {
   "السعودية": [
-    { name:"مكة المكرمة",   lat:21.39,  lng:39.85,  tz:3 },
-    { name:"المدينة المنورة",lat:24.47,  lng:39.61,  tz:3 },
-    { name:"الرياض",         lat:24.68,  lng:46.72,  tz:3 },
-    { name:"جدة",            lat:21.54,  lng:39.17,  tz:3 },
-    { name:"الدمام",         lat:26.39,  lng:49.99,  tz:3 },
+    { name:"مكة المكرمة",    lat:21.39,  lng:39.85,  tz:3 },
+    { name:"المدينة المنورة", lat:24.47,  lng:39.61,  tz:3 },
+    { name:"الرياض",          lat:24.68,  lng:46.72,  tz:3 },
+    { name:"جدة",             lat:21.54,  lng:39.17,  tz:3 },
+    { name:"الدمام",          lat:26.39,  lng:49.99,  tz:3 },
+    { name:"أبها",            lat:18.22,  lng:42.51,  tz:3 },
   ],
   "مصر": [
-    { name:"القاهرة",        lat:30.06,  lng:31.25,  tz:2 },
-    { name:"الإسكندرية",     lat:31.20,  lng:29.92,  tz:2 },
-    { name:"الأقصر",         lat:25.69,  lng:32.64,  tz:2 },
-    { name:"أسوان",          lat:24.09,  lng:32.90,  tz:2 },
+    { name:"القاهرة",         lat:30.06,  lng:31.25,  tz:2 },
+    { name:"الإسكندرية",      lat:31.20,  lng:29.92,  tz:2 },
+    { name:"الأقصر",          lat:25.69,  lng:32.64,  tz:2 },
+    { name:"أسوان",           lat:24.09,  lng:32.90,  tz:2 },
+    { name:"طنطا",            lat:30.79,  lng:31.00,  tz:2 },
   ],
   "الإمارات": [
-    { name:"أبوظبي",         lat:24.47,  lng:54.37,  tz:4 },
-    { name:"دبي",            lat:25.20,  lng:55.27,  tz:4 },
-    { name:"الشارقة",        lat:25.34,  lng:55.39,  tz:4 },
+    { name:"أبوظبي",          lat:24.47,  lng:54.37,  tz:4 },
+    { name:"دبي",             lat:25.20,  lng:55.27,  tz:4 },
+    { name:"الشارقة",         lat:25.34,  lng:55.39,  tz:4 },
+    { name:"عجمان",           lat:25.41,  lng:55.44,  tz:4 },
   ],
-  "الكويت": [
-    { name:"الكويت",         lat:29.37,  lng:47.98,  tz:3 },
-  ],
-  "قطر": [
-    { name:"الدوحة",         lat:25.29,  lng:51.53,  tz:3 },
-  ],
-  "البحرين": [
-    { name:"المنامة",        lat:26.22,  lng:50.59,  tz:3 },
-  ],
+  "الكويت":    [ { name:"الكويت",          lat:29.37,  lng:47.98,  tz:3 } ],
+  "قطر":       [ { name:"الدوحة",          lat:25.29,  lng:51.53,  tz:3 } ],
+  "البحرين":   [ { name:"المنامة",         lat:26.22,  lng:50.59,  tz:3 } ],
   "عُمان": [
-    { name:"مسقط",           lat:23.61,  lng:58.59,  tz:4 },
+    { name:"مسقط",            lat:23.61,  lng:58.59,  tz:4 },
+    { name:"صلالة",           lat:17.02,  lng:54.09,  tz:4 },
   ],
   "اليمن": [
-    { name:"صنعاء",          lat:15.37,  lng:44.19,  tz:3 },
-    { name:"عدن",            lat:12.78,  lng:45.03,  tz:3 },
+    { name:"صنعاء",           lat:15.37,  lng:44.19,  tz:3 },
+    { name:"عدن",             lat:12.78,  lng:45.03,  tz:3 },
   ],
   "الأردن": [
-    { name:"عمّان",          lat:31.96,  lng:35.95,  tz:2 },
+    { name:"عمّان",           lat:31.96,  lng:35.95,  tz:2 },
+    { name:"إربد",            lat:32.55,  lng:35.85,  tz:2 },
   ],
   "سوريا": [
-    { name:"دمشق",           lat:33.51,  lng:36.29,  tz:2 },
-    { name:"حلب",            lat:36.20,  lng:37.16,  tz:2 },
+    { name:"دمشق",            lat:33.51,  lng:36.29,  tz:2 },
+    { name:"حلب",             lat:36.20,  lng:37.16,  tz:2 },
+    { name:"حمص",             lat:34.73,  lng:36.72,  tz:2 },
   ],
   "لبنان": [
-    { name:"بيروت",          lat:33.89,  lng:35.50,  tz:2 },
+    { name:"بيروت",           lat:33.89,  lng:35.50,  tz:2 },
+    { name:"طرابلس",          lat:34.43,  lng:35.85,  tz:2 },
   ],
   "العراق": [
-    { name:"بغداد",          lat:33.34,  lng:44.40,  tz:3 },
-    { name:"البصرة",         lat:30.51,  lng:47.82,  tz:3 },
+    { name:"بغداد",           lat:33.34,  lng:44.40,  tz:3 },
+    { name:"البصرة",          lat:30.51,  lng:47.82,  tz:3 },
+    { name:"أربيل",           lat:36.19,  lng:44.01,  tz:3 },
   ],
   "ليبيا": [
-    { name:"طرابلس",         lat:32.90,  lng:13.18,  tz:2 },
-    { name:"بنغازي",         lat:32.11,  lng:20.07,  tz:2 },
+    { name:"طرابلس",          lat:32.90,  lng:13.18,  tz:2 },
+    { name:"بنغازي",          lat:32.11,  lng:20.07,  tz:2 },
   ],
   "تونس": [
-    { name:"تونس",           lat:36.82,  lng:10.18,  tz:1 },
+    { name:"تونس",            lat:36.82,  lng:10.18,  tz:1 },
+    { name:"صفاقس",           lat:34.74,  lng:10.76,  tz:1 },
   ],
   "الجزائر": [
-    { name:"الجزائر",        lat:36.74,  lng:3.06,   tz:1 },
+    { name:"الجزائر",         lat:36.74,  lng:3.06,   tz:1 },
+    { name:"وهران",           lat:35.70,  lng:-0.63,  tz:1 },
   ],
   "المغرب": [
-    { name:"الرباط",         lat:34.02,  lng:-6.84,  tz:1 },
-    { name:"الدار البيضاء",  lat:33.59,  lng:-7.62,  tz:1 },
-    { name:"مراكش",          lat:31.63,  lng:-7.99,  tz:1 },
+    { name:"الرباط",          lat:34.02,  lng:-6.84,  tz:1 },
+    { name:"الدار البيضاء",   lat:33.59,  lng:-7.62,  tz:1 },
+    { name:"مراكش",           lat:31.63,  lng:-7.99,  tz:1 },
+    { name:"فاس",             lat:34.03,  lng:-5.00,  tz:1 },
   ],
-  "موريتانيا": [
-    { name:"نواكشوط",        lat:18.08,  lng:-15.97, tz:0 },
-  ],
-  "السودان": [
-    { name:"الخرطوم",        lat:15.55,  lng:32.53,  tz:3 },
-  ],
-  "الصومال": [
-    { name:"مقديشو",         lat:2.05,   lng:45.34,  tz:3 },
-  ],
+  "موريتانيا": [ { name:"نواكشوط",    lat:18.08,  lng:-15.97, tz:0 } ],
+  "السودان":   [ { name:"الخرطوم",    lat:15.55,  lng:32.53,  tz:3 } ],
+  "الصومال":   [ { name:"مقديشو",     lat:2.05,   lng:45.34,  tz:3 } ],
   "تركيا": [
-    { name:"إسطنبول",        lat:41.01,  lng:28.95,  tz:3 },
-    { name:"أنقرة",          lat:39.92,  lng:32.85,  tz:3 },
+    { name:"إسطنبول",         lat:41.01,  lng:28.95,  tz:3 },
+    { name:"أنقرة",           lat:39.92,  lng:32.85,  tz:3 },
+    { name:"إزمير",           lat:38.42,  lng:27.14,  tz:3 },
   ],
   "باكستان": [
-    { name:"كراتشي",         lat:24.86,  lng:67.01,  tz:5 },
-    { name:"إسلام آباد",     lat:33.72,  lng:73.04,  tz:5 },
+    { name:"كراتشي",          lat:24.86,  lng:67.01,  tz:5 },
+    { name:"إسلام آباد",      lat:33.72,  lng:73.04,  tz:5 },
+    { name:"لاهور",           lat:31.55,  lng:74.34,  tz:5 },
   ],
-  "إيران": [
-    { name:"طهران",          lat:35.69,  lng:51.39,  tz:3.5 },
-  ],
-  "ماليزيا": [
-    { name:"كوالالمبور",      lat:3.15,   lng:101.69, tz:8 },
-  ],
-  "إندونيسيا": [
-    { name:"جاكرتا",         lat:-6.21,  lng:106.85, tz:7 },
-  ],
+  "إيران":     [ { name:"طهران",      lat:35.69,  lng:51.39,  tz:3.5 } ],
+  "ماليزيا":   [ { name:"كوالالمبور", lat:3.15,   lng:101.69, tz:8 } ],
+  "إندونيسيا": [ { name:"جاكرتا",    lat:-6.21,  lng:106.85, tz:7 } ],
   "ألمانيا": [
-    { name:"برلين",          lat:52.52,  lng:13.40,  tz:1 },
-    { name:"ميونيخ",         lat:48.14,  lng:11.58,  tz:1 },
-    { name:"فرانكفورت",      lat:50.11,  lng:8.68,   tz:1 },
-    { name:"كولونيا",        lat:50.94,  lng:6.96,   tz:1 },
-    { name:"هامبورغ",        lat:53.55,  lng:10.00,  tz:1 },
+    { name:"برلين",           lat:52.52,  lng:13.40,  tz:1 },
+    { name:"ميونيخ",          lat:48.14,  lng:11.58,  tz:1 },
+    { name:"فرانكفورت",       lat:50.11,  lng:8.68,   tz:1 },
+    { name:"كولونيا",         lat:50.94,  lng:6.96,   tz:1 },
+    { name:"هامبورغ",         lat:53.55,  lng:10.00,  tz:1 },
+    { name:"دوسلدورف",        lat:51.22,  lng:6.78,   tz:1 },
   ],
   "فرنسا": [
-    { name:"باريس",          lat:48.86,  lng:2.35,   tz:1 },
-    { name:"مرسيليا",        lat:43.30,  lng:5.37,   tz:1 },
-    { name:"ليون",           lat:45.75,  lng:4.83,   tz:1 },
+    { name:"باريس",           lat:48.86,  lng:2.35,   tz:1 },
+    { name:"مرسيليا",         lat:43.30,  lng:5.37,   tz:1 },
+    { name:"ليون",            lat:45.75,  lng:4.83,   tz:1 },
   ],
   "المملكة المتحدة": [
-    { name:"لندن",           lat:51.51,  lng:-0.13,  tz:0 },
-    { name:"برمنغهام",       lat:52.48,  lng:-1.90,  tz:0 },
-    { name:"مانشستر",        lat:53.48,  lng:-2.24,  tz:0 },
+    { name:"لندن",            lat:51.51,  lng:-0.13,  tz:0 },
+    { name:"برمنغهام",        lat:52.48,  lng:-1.90,  tz:0 },
+    { name:"مانشستر",         lat:53.48,  lng:-2.24,  tz:0 },
   ],
   "الولايات المتحدة": [
-    { name:"نيويورك",        lat:40.71,  lng:-74.01, tz:-5 },
-    { name:"لوس أنجلوس",     lat:34.05,  lng:-118.24,tz:-8 },
-    { name:"شيكاغو",         lat:41.88,  lng:-87.63, tz:-6 },
-    { name:"ديربورن",        lat:42.32,  lng:-83.18, tz:-5 },
+    { name:"نيويورك",         lat:40.71,  lng:-74.01, tz:-5 },
+    { name:"لوس أنجلوس",      lat:34.05,  lng:-118.24,tz:-8 },
+    { name:"شيكاغو",          lat:41.88,  lng:-87.63, tz:-6 },
+    { name:"ديربورن",         lat:42.32,  lng:-83.18, tz:-5 },
+    { name:"هيوستن",          lat:29.76,  lng:-95.37, tz:-6 },
   ],
   "كندا": [
-    { name:"تورنتو",         lat:43.65,  lng:-79.38, tz:-5 },
-    { name:"مونتريال",       lat:45.51,  lng:-73.57, tz:-5 },
+    { name:"تورنتو",          lat:43.65,  lng:-79.38, tz:-5 },
+    { name:"مونتريال",        lat:45.51,  lng:-73.57, tz:-5 },
+    { name:"فانكوفر",         lat:49.28,  lng:-123.12,tz:-8 },
   ],
   "أستراليا": [
-    { name:"سيدني",          lat:-33.87, lng:151.21, tz:11 },
-    { name:"ملبورن",         lat:-37.81, lng:144.96, tz:11 },
+    { name:"سيدني",           lat:-33.87, lng:151.21, tz:11 },
+    { name:"ملبورن",          lat:-37.81, lng:144.96, tz:11 },
   ],
 };
 
@@ -338,10 +407,9 @@ const PRAYERS_META = [
 ];
 </script>
 
-<!-- ─── DOM ─────────────────────────────────────────────────── -->
+<!-- ══════════════ HTML ══════════════ -->
 <div class="wrap">
 
-  <!-- Header -->
   <div class="header">
     <span class="moon">🌙</span>
     <h1>مواقيت الصلاة</h1>
@@ -349,7 +417,6 @@ const PRAYERS_META = [
     <p class="date-hi" id="dateHi">—</p>
   </div>
 
-  <!-- Next prayer -->
   <div class="next-card">
     <p class="next-lbl">الصلاة القادمة</p>
     <p class="next-name" id="nextName">—</p>
@@ -357,42 +424,60 @@ const PRAYERS_META = [
     <p class="cdown-lbl">الوقت المتبقي</p>
   </div>
 
-  <!-- Azan status -->
   <div class="azan-bar">
     <div class="azan-dot" id="azanDot"></div>
     <span class="azan-txt" id="azanTxt">الإشعارات مفعّلة — سيرفع الأذان عند دخول وقت الصلاة</span>
     <button class="stop-btn" id="stopBtn" onclick="stopAzan()">إيقاف</button>
   </div>
 
-  <!-- Toolbar -->
   <div class="toolbar">
-    <span class="chip on" id="azanChip" onclick="toggleAzan()">🔔 الأذان مفعّل</span>
-    <span class="chip on" id="settingsChip" onclick="togglePanel('settingsPanel')">⚙️ الإعدادات</span>
-    <span class="chip on" id="adjChip" onclick="togglePanel('adjPanel')">⏱ ضبط الأوقات</span>
+    <span class="chip on"  id="azanChip"     onclick="toggleAzan()">🔔 الأذان مفعّل</span>
+    <span class="chip on"  id="muezzinChip"  onclick="togglePanel('muezzinPanel')">🎙️ المؤذن</span>
+    <span class="chip on"  id="settingsChip" onclick="togglePanel('settingsPanel')">⚙️ الإعدادات</span>
+    <span class="chip on"  id="adjChip"      onclick="togglePanel('adjPanel')">⏱ ضبط الأوقات</span>
   </div>
 
-  <!-- ── SETTINGS PANEL ──────────────────────────────── -->
+  <!-- ══ MUEZZIN PANEL ══ -->
+  <div class="panel" id="muezzinPanel">
+    <div class="panel-title">اختيار المؤذن</div>
+    <div class="muezzin-grid" id="muezzinGrid"></div>
+    <div id="fileStatusList"></div>
+    <button class="test-btn" onclick="testAzan()">▶ اختبار الأذان الآن</button>
+    <div class="folder-note">
+      <strong>هيكل المجلدات المطلوب:</strong><br>
+      📁 muezzins/<br>
+      &nbsp;&nbsp;├── 📁 abdulbasit/<br>
+      &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <strong>fajr.mp3</strong><br>
+      &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <strong>dhuhr.mp3</strong><br>
+      &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <strong>asr.mp3</strong><br>
+      &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <strong>maghrib.mp3</strong><br>
+      &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <strong>isha.mp3</strong><br>
+      &nbsp;&nbsp;├── 📁 makkah/ &nbsp;(نفس الملفات)<br>
+      &nbsp;&nbsp;├── 📁 madinah/<br>
+      &nbsp;&nbsp;├── 📁 mishari/<br>
+      &nbsp;&nbsp;└── 📁 custom/ &nbsp;(مؤذنك المخصص)
+    </div>
+  </div>
+
+  <!-- ══ SETTINGS PANEL ══ -->
   <div class="panel" id="settingsPanel">
     <div class="panel-title">اختيار المدينة وطريقة الحساب</div>
-
     <div class="sel-row">
       <div class="sel-wrap">
-        <label>الدولة</label>
+        <label class="lbl">الدولة</label>
         <select id="countrySelect" onchange="onCountryChange()"></select>
       </div>
       <div class="sel-wrap">
-        <label>المدينة</label>
+        <label class="lbl">المدينة</label>
         <select id="citySelect" onchange="onCityChange()"></select>
       </div>
     </div>
-
-    <div class="method-sel">
-      <label style="font-size:12px;color:var(--blue-dim);margin-bottom:4px;display:block;">طريقة حساب المواقيت</label>
+    <div>
+      <label class="lbl">طريقة حساب المواقيت</label>
       <select id="methodSelect" onchange="onMethodChange()"></select>
     </div>
-
     <div style="margin-top:12px;">
-      <label style="font-size:12px;color:var(--blue-dim);margin-bottom:4px;display:block;">أو أدخل الإحداثيات يدوياً</label>
+      <label class="lbl">أو أدخل الإحداثيات يدوياً</label>
       <div style="display:flex;gap:8px;">
         <input type="number" id="manLat" placeholder="خط العرض" step="0.001">
         <input type="number" id="manLng" placeholder="خط الطول" step="0.001">
@@ -402,112 +487,174 @@ const PRAYERS_META = [
     </div>
   </div>
 
-  <!-- ── TIME ADJUST PANEL ────────────────────────────── -->
+  <!-- ══ ADJ PANEL ══ -->
   <div class="panel" id="adjPanel">
-    <div class="panel-title">ضبط الأوقات (بالدقائق)</div>
+    <div class="panel-title">ضبط الأوقات بالدقائق</div>
     <p style="font-size:12px;color:var(--blue-dim);text-align:center;margin-bottom:12px;">
-      حرّك المنزلق للأمام أو الخلف لضبط كل وقت بما يتوافق مع أذان بلدك
+      حرّك المنزلق للأمام أو الخلف لضبط كل وقت مع أذان بلدك
     </p>
     <div id="adjRows"></div>
     <button class="apply-btn" onclick="applyAdj()">✓ تطبيق التعديلات</button>
     <p class="footer-note">النطاق: من −30 إلى +30 دقيقة</p>
   </div>
 
-  <!-- Prayers list -->
   <div class="prayers" id="prayersList"></div>
-
   <p class="footer-note" id="methodNote">—</p>
 </div>
 
-<!-- ─── AUDIO (Azan) ──────────────────────────────────────── -->
-<audio id="azanAudio">
-  <source src="https://www.islamicity.org/itn/wp-content/uploads/2020/01/adhan.mp3" type="audio/mpeg">
-</audio>
+<!-- ══ عنصر audio واحد لكل صلاة ══ -->
+<audio id="audio_fajr"    preload="none"></audio>
+<audio id="audio_dhuhr"   preload="none"></audio>
+<audio id="audio_asr"     preload="none"></audio>
+<audio id="audio_maghrib" preload="none"></audio>
+<audio id="audio_isha"    preload="none"></audio>
 
+<!-- ══════════════ JS ══════════════ -->
 <script>
-/* ─────────────────────────────────── STATE ──────────────── */
+/* ══ STATE ══ */
 let state = {
-  lat: 21.39, lng: 39.85, tz: 3,
-  cityName: 'مكة المكرمة', countryName: 'السعودية',
-  methodIdx: 0,
-  azanOn: true,
-  notify: { fajr:true, sunrise:false, dhuhr:true, asr:true, maghrib:true, isha:true },
-  adj:    { fajr:0, sunrise:0, dhuhr:0, asr:0, maghrib:0, isha:0 },
-  adjTemp:{ fajr:0, sunrise:0, dhuhr:0, asr:0, maghrib:0, isha:0 },
-  azanPlayed: {},
-  azanPlaying: false,
+  lat:21.39, lng:39.85, tz:3,
+  cityName:'مكة المكرمة', countryName:'السعودية',
+  methodIdx:0, muezzinIdx:0,
+  azanOn:true,
+  notify:  { fajr:true, sunrise:false, dhuhr:true, asr:true, maghrib:true, isha:true },
+  adj:     { fajr:0, sunrise:0, dhuhr:0, asr:0, maghrib:0, isha:0 },
+  adjTemp: { fajr:0, sunrise:0, dhuhr:0, asr:0, maghrib:0, isha:0 },
+  azanPlayed:{},
 };
+let currentAudio = null;
 
-/* ─────────────────────────────────── STARS ─────────────── */
-for (let i=0;i<110;i++){
-  const s=document.createElement('div');
-  s.className='star';
+/* ══ STARS ══ */
+for (let i=0;i<110;i++) {
+  const s=document.createElement('div'); s.className='star';
   const sz=Math.random()*2.5+.5;
-  s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;
-    --dur:${2+Math.random()*3}s;animation-delay:${Math.random()*4}s;`;
+  s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${2+Math.random()*3}s;animation-delay:${Math.random()*4}s;`;
   document.body.appendChild(s);
 }
 
-/* ─────────────────────────────────── SELECTS ───────────── */
-function buildSelects(){
-  const cs = document.getElementById('countrySelect');
+/* ══════════════════════════════════════════════════════
+   MUEZZIN
+══════════════════════════════════════════════════════ */
+function buildMuezzinGrid() {
+  const grid=document.getElementById('muezzinGrid');
+  grid.innerHTML='';
+  MUEZZINS.forEach((m,i)=>{
+    const card=document.createElement('div');
+    card.className='muezzin-card'+(i===state.muezzinIdx?' selected':'');
+    card.onclick=()=>selectMuezzin(i);
+    card.innerHTML=`
+      <span class="muezzin-icon">${m.icon}</span>
+      <div class="muezzin-name">${m.name}</div>
+      <div class="muezzin-sub">${m.sub}</div>
+    `;
+    grid.appendChild(card);
+  });
+  checkFiles();
+}
+
+function selectMuezzin(idx) {
+  state.muezzinIdx=idx;
+  stopAzan();
+  updateAudioSources();
+  buildMuezzinGrid();
+  showToast(`تم اختيار: ${MUEZZINS[idx].name}`);
+}
+
+/* تحديث src لعناصر الصوت */
+function updateAudioSources() {
+  const folder=MUEZZINS[state.muezzinIdx].folder;
+  Object.keys(AZAN_FILES).forEach(key=>{
+    const el=document.getElementById('audio_'+key);
+    if(el){ el.src=`${folder}/${AZAN_FILES[key]}`; el.load(); }
+  });
+}
+
+/* فحص وجود الملفات */
+function checkFiles() {
+  const list=document.getElementById('fileStatusList');
+  list.innerHTML='';
+  const folder=MUEZZINS[state.muezzinIdx].folder;
+  Object.entries(AZAN_FILES).forEach(([key,file])=>{
+    const pName=PRAYERS_META.find(p=>p.key===key)?.ar||key;
+    const row=document.createElement('div');
+    row.className='file-status chk';
+    row.innerHTML=`<span>⏳</span><span>${pName} — ${file}</span>`;
+    list.appendChild(row);
+    fetch(`${folder}/${file}`,{method:'HEAD'})
+      .then(r=>{
+        row.className='file-status '+(r.ok?'ok':'miss');
+        row.innerHTML=r.ok
+          ?`<span>✓</span><span>${pName} — ${file}</span>`
+          :`<span>✗</span><span>${pName} — ${file} (غير موجود)</span>`;
+      }).catch(()=>{
+        row.className='file-status miss';
+        row.innerHTML=`<span>✗</span><span>${pName} — ${file} (غير موجود)</span>`;
+      });
+  });
+}
+
+function testAzan() {
+  const times=calcTimes();
+  const now=new Date();
+  const nowMins=now.getHours()*60+now.getMinutes();
+  let closest='dhuhr', minD=Infinity;
+  PRAYERS_META.forEach(p=>{
+    if(p.key==='sunrise') return;
+    const tm=strToMins(floatToStr(times[p.key]));
+    if(!isNaN(tm)&&Math.abs(tm-nowMins)<minD){minD=Math.abs(tm-nowMins);closest=p.key;}
+  });
+  playAzan(PRAYERS_META.find(p=>p.key===closest)?.ar||'الظهر', closest);
+}
+
+/* ══════════════════════════════════════════════════════
+   SELECTS
+══════════════════════════════════════════════════════ */
+function buildSelects() {
+  const cs=document.getElementById('countrySelect');
   Object.keys(CITIES).forEach(c=>{
     const o=document.createElement('option'); o.value=o.textContent=c; cs.appendChild(o);
   });
-  cs.value = state.countryName;
+  cs.value=state.countryName;
   buildCitySelect(state.countryName);
-
-  const ms = document.getElementById('methodSelect');
+  const ms=document.getElementById('methodSelect');
   METHODS.forEach((m,i)=>{
     const o=document.createElement('option'); o.value=i; o.textContent=m.name; ms.appendChild(o);
   });
-  ms.value = state.methodIdx;
+  ms.value=state.methodIdx;
 }
-
-function buildCitySelect(country){
+function buildCitySelect(country) {
   const cs=document.getElementById('citySelect'); cs.innerHTML='';
   (CITIES[country]||[]).forEach((c,i)=>{
     const o=document.createElement('option'); o.value=i; o.textContent=c.name; cs.appendChild(o);
   });
 }
-
-function onCountryChange(){
+function onCountryChange() {
   const country=document.getElementById('countrySelect').value;
-  state.countryName=country;
-  buildCitySelect(country);
-  const cities=CITIES[country];
-  if(cities&&cities.length){
-    const c=cities[0];
-    state.lat=c.lat; state.lng=c.lng; state.tz=c.tz; state.cityName=c.name;
-  }
+  state.countryName=country; buildCitySelect(country);
+  const c=(CITIES[country]||[])[0];
+  if(c){state.lat=c.lat;state.lng=c.lng;state.tz=c.tz;state.cityName=c.name;}
   updateAll();
 }
-
-function onCityChange(){
+function onCityChange() {
   const country=document.getElementById('countrySelect').value;
   const idx=parseInt(document.getElementById('citySelect').value);
   const c=CITIES[country][idx];
-  state.lat=c.lat; state.lng=c.lng; state.tz=c.tz; state.cityName=c.name; state.countryName=country;
+  state.lat=c.lat;state.lng=c.lng;state.tz=c.tz;state.cityName=c.name;state.countryName=country;
   updateAll();
 }
-
-function onMethodChange(){
-  state.methodIdx=parseInt(document.getElementById('methodSelect').value);
-  updateAll();
-}
-
-function applyManual(){
+function onMethodChange() { state.methodIdx=parseInt(document.getElementById('methodSelect').value); updateAll(); }
+function applyManual() {
   const lt=parseFloat(document.getElementById('manLat').value);
   const ln=parseFloat(document.getElementById('manLng').value);
   const tz=parseFloat(document.getElementById('manTz').value);
-  if(isNaN(lt)||isNaN(ln)){alert('الرجاء إدخال الإحداثيات'); return;}
-  state.lat=lt; state.lng=ln; state.tz=isNaN(tz)?3:tz;
-  state.cityName=`${lt.toFixed(2)}, ${ln.toFixed(2)}`; state.countryName='موقع مخصص';
+  if(isNaN(lt)||isNaN(ln)){alert('الرجاء إدخال الإحداثيات');return;}
+  state.lat=lt;state.lng=ln;state.tz=isNaN(tz)?3:tz;
+  state.cityName=`${lt.toFixed(2)},${ln.toFixed(2)}`;state.countryName='مخصص';
   updateAll();
 }
 
-/* ─────────────────────────────────── ADJ SLIDERS ──────── */
-function buildAdjRows(){
+/* ══ ADJ ══ */
+function buildAdjRows() {
   const wrap=document.getElementById('adjRows'); wrap.innerHTML='';
   PRAYERS_META.forEach(p=>{
     const v=state.adjTemp[p.key]||0;
@@ -521,169 +668,116 @@ function buildAdjRows(){
     wrap.appendChild(row);
   });
 }
-
-function liveAdj(key,val){
+function liveAdj(key,val) {
   state.adjTemp[key]=parseInt(val);
   document.getElementById('adjv_'+key).textContent=(val>=0?'+':'')+val+' د';
 }
-
-function applyAdj(){
-  PRAYERS_META.forEach(p=>{ state.adj[p.key]=state.adjTemp[p.key]; });
-  updateAll();
-  showToast('تم تطبيق تعديلات الأوقات ✓');
+function applyAdj() {
+  PRAYERS_META.forEach(p=>{state.adj[p.key]=state.adjTemp[p.key];});
+  updateAll(); showToast('تم تطبيق تعديلات الأوقات ✓');
 }
 
-/* ─────────────────────────────────── PANELS ────────────── */
-function togglePanel(id){
+/* ══ PANELS ══ */
+function togglePanel(id) {
   const p=document.getElementById(id);
   const isOpen=p.classList.contains('open');
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('open'));
-  if(!isOpen) p.classList.add('open');
-  if(id==='adjPanel') buildAdjRows();
+  if(!isOpen){
+    p.classList.add('open');
+    if(id==='adjPanel')     buildAdjRows();
+    if(id==='muezzinPanel') buildMuezzinGrid();
+  }
 }
 
-/* ─────────────────────────────────── CALC ──────────────── */
-function toRad(d){return d*Math.PI/180;}
-function toDeg(r){return r*180/Math.PI;}
-
-function julianDay(date){
+/* ══════════════════════════════════════════════════════
+   CALC
+══════════════════════════════════════════════════════ */
+const toRad=d=>d*Math.PI/180, toDeg=r=>r*180/Math.PI;
+function julianDay(date) {
   let y=date.getFullYear(),m=date.getMonth()+1,d=date.getDate();
   if(m<=2){y--;m+=12;}
   const A=Math.floor(y/100),B=2-A+Math.floor(A/4);
   return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5;
 }
-
-function sunPos(jd){
-  const D=jd-2451545;
-  const g=(357.529+.9856*D)%360;
-  const q=(280.459+.9856*D)%360;
-  const L=(q+1.915*Math.sin(toRad(g))+.02*Math.sin(toRad(2*g)))%360;
-  const e=23.439-.0000004*D;
+function sunPos(jd) {
+  const D=jd-2451545,g=(357.529+.9856*D)%360,q=(280.459+.9856*D)%360;
+  const L=(q+1.915*Math.sin(toRad(g))+.02*Math.sin(toRad(2*g)))%360,e=23.439-.0000004*D;
   const RA=toDeg(Math.atan2(Math.cos(toRad(e))*Math.sin(toRad(L)),Math.cos(toRad(L))))/15;
-  const decl=toDeg(Math.asin(Math.sin(toRad(e))*Math.sin(toRad(L))));
-  const eqT=(q/15-RA)*60;
-  return {decl,eqT};
+  return {decl:toDeg(Math.asin(Math.sin(toRad(e))*Math.sin(toRad(L)))),eqT:(q/15-RA)*60};
 }
-
-function angleHour(angle,decl,lat){
+function angleHour(angle,decl,lat) {
   const d=toRad(decl),L=toRad(lat);
   const cosH=(Math.cos(toRad(90+angle))-Math.sin(d)*Math.sin(L))/(Math.cos(d)*Math.cos(L));
-  if(Math.abs(cosH)>1)return NaN;
-  return toDeg(Math.acos(cosH))/15;
+  return Math.abs(cosH)>1?NaN:toDeg(Math.acos(cosH))/15;
 }
-
-function asrHour(sf,decl,lat){
-  const d=toRad(decl),L=toRad(lat);
-  const a=Math.atan(1/(sf+Math.tan(Math.abs(d-L))));
+function asrHour(sf,decl,lat) {
+  const d=toRad(decl),L=toRad(lat),a=Math.atan(1/(sf+Math.tan(Math.abs(d-L))));
   const cosH=(Math.sin(a)-Math.sin(d)*Math.sin(L))/(Math.cos(d)*Math.cos(L));
-  if(Math.abs(cosH)>1)return NaN;
-  return toDeg(Math.acos(cosH))/15;
+  return Math.abs(cosH)>1?NaN:toDeg(Math.acos(cosH))/15;
 }
-
-function calcTimes(){
-  const date=new Date();
-  const jd=julianDay(date);
-  const {decl,eqT}=sunPos(jd);
+function calcTimes() {
+  const date=new Date(),jd=julianDay(date),{decl,eqT}=sunPos(jd);
   const noon=12-(state.lng/15)-eqT/60+state.tz;
-  const method=METHODS[state.methodIdx];
-
-  const srOffset=angleHour(.833,decl,state.lat);
-  let ishaOff;
-  if(typeof method.isha==='string'&&method.isha.startsWith('fix:')){
-    ishaOff=parseFloat(method.isha.split(':')[1])/60;
-    ishaOff='fixed';
-  } else {
-    ishaOff=angleHour(method.isha,decl,state.lat);
-  }
-
+  const method=METHODS[state.methodIdx],srOff=angleHour(.833,decl,state.lat);
+  const ishaFixed=typeof method.isha==='string'&&method.isha.startsWith('fix:');
   const raw={
     fajr:    noon-angleHour(method.fajr,decl,state.lat),
-    sunrise: noon-srOffset,
-    dhuhr:   noon+.033,
+    sunrise: noon-srOff, dhuhr:noon+.033,
     asr:     noon+asrHour(1,decl,state.lat),
-    maghrib: noon+srOffset,
-    isha:    ishaOff==='fixed'
-               ? noon+srOffset+parseFloat(METHODS[state.methodIdx].isha.split(':')[1])/60
-               : noon+ishaOff,
+    maghrib: noon+srOff,
+    isha:    ishaFixed?noon+srOff+parseFloat(method.isha.split(':')[1])/60:noon+angleHour(method.isha,decl,state.lat),
   };
-
-  // Apply adjustments
   const times={};
-  PRAYERS_META.forEach(p=>{
-    times[p.key]=raw[p.key]+(state.adj[p.key]||0)/60;
-  });
+  PRAYERS_META.forEach(p=>{times[p.key]=raw[p.key]+(state.adj[p.key]||0)/60;});
   return times;
 }
-
-function floatToStr(f){
-  if(isNaN(f))return '--:--';
+function floatToStr(f) {
+  if(isNaN(f))return'--:--';
   f=((f%24)+24)%24;
-  const h=Math.floor(f);
-  const m=Math.round((f-h)*60);
-  if(m===60)return `${(h+1).toString().padStart(2,'0')}:00`;
-  return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+  const h=Math.floor(f),m=Math.round((f-h)*60);
+  if(m===60)return`${(h+1).toString().padStart(2,'0')}:00`;
+  return`${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
 }
+function strToMins(s){if(s==='--:--')return NaN;const[h,m]=s.split(':').map(Number);return h*60+m;}
+function hijriStr(d){try{return new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{day:'numeric',month:'long',year:'numeric'}).format(d);}catch{return'';}}
 
-function strToMins(s){
-  if(s==='--:--')return NaN;
-  const[h,m]=s.split(':').map(Number);
-  return h*60+m;
-}
-
-/* ─────────────────────────────────── HIJRI ─────────────── */
-function hijriStr(d){
-  try{
-    return new Intl.DateTimeFormat('ar-SA-u-ca-islamic',
-      {day:'numeric',month:'long',year:'numeric'}).format(d);
-  }catch{return '';}
-}
-
-/* ─────────────────────────────────── RENDER ─────────────── */
-function updateAll(){
+/* ══════════════════════════════════════════════════════
+   RENDER
+══════════════════════════════════════════════════════ */
+function updateAll() {
   const now=new Date();
   const days=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
-  const months=['يناير','فبراير','مارس','أبريل','مايو','يونيو',
-                'يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-  document.getElementById('dateGr').textContent=
-    `${days[now.getDay()]}، ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} — ${state.cityName}`;
+  const months=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  document.getElementById('dateGr').textContent=`${days[now.getDay()]}، ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} — ${state.cityName}`;
   document.getElementById('dateHi').textContent=hijriStr(now);
-  document.getElementById('methodNote').textContent=
-    `طريقة الحساب: ${METHODS[state.methodIdx].name}`;
+  document.getElementById('methodNote').textContent=`طريقة: ${METHODS[state.methodIdx].name} · مؤذن: ${MUEZZINS[state.muezzinIdx].name}`;
 
   const times=calcTimes();
   const nowMins=now.getHours()*60+now.getMinutes()+now.getSeconds()/60;
 
-  // Next prayer
   let nextKey=null,nextMins=Infinity;
   PRAYERS_META.forEach(p=>{
     const tm=strToMins(floatToStr(times[p.key]));
     if(!isNaN(tm)&&tm>nowMins&&tm<nextMins){nextMins=tm;nextKey=p.key;}
   });
-  if(!nextKey){
-    nextKey='fajr';
-    nextMins=strToMins(floatToStr(times.fajr))+1440;
-  }
-  const nm=PRAYERS_META.find(p=>p.key===nextKey);
-  document.getElementById('nextName').textContent=nm?nm.ar:'—';
+  if(!nextKey){nextKey='fajr';nextMins=strToMins(floatToStr(times.fajr))+1440;}
 
+  document.getElementById('nextName').textContent=PRAYERS_META.find(p=>p.key===nextKey)?.ar||'—';
   const diff=(nextMins-nowMins)*60;
   const hh=Math.floor(diff/3600),mm=Math.floor((diff%3600)/60),ss=Math.floor(diff%60);
   document.getElementById('countdown').textContent=
     `${hh.toString().padStart(2,'0')}:${mm.toString().padStart(2,'0')}:${ss.toString().padStart(2,'0')}`;
 
-  // Render prayer cards
   const list=document.getElementById('prayersList'); list.innerHTML='';
   PRAYERS_META.forEach(p=>{
     const tStr=floatToStr(times[p.key]);
     const tm=strToMins(tStr);
     const isPassed=!isNaN(tm)&&tm<=Math.floor(nowMins);
     const isActive=p.key===nextKey;
-    const notified=state.notify[p.key];
     const adjVal=state.adj[p.key]||0;
-    const adjBadge=adjVal!==0?`<span style="font-size:10px;color:var(--gold);margin-right:4px;">${adjVal>0?'+':''}${adjVal}د</span>`:'';
-
+    const adjBadge=adjVal!==0?`<span style="font-size:10px;color:var(--gold);margin-left:4px;">${adjVal>0?'+':''}${adjVal}د</span>`:'';
     const card=document.createElement('div');
-    card.className=`pcard ${isActive?'active':''} ${isPassed&&!isActive?'passed':''}`;
+    card.className=`pcard${isActive?' active':''}${isPassed&&!isActive?' passed':''}`;
     card.innerHTML=`
       <div class="pcard-left">
         <div class="picon">${p.icon}</div>
@@ -695,35 +789,41 @@ function updateAll(){
       <div class="pcard-right">
         ${adjBadge}
         <span class="ptime">${tStr}</span>
-        ${p.key!=='sunrise'?`<button class="notif-btn ${notified?'on':''}" onclick="toggleNotify('${p.key}',this)">${notified?'🔔':'🔕'}</button>`:''}
+        ${p.key!=='sunrise'?`<button class="notif-btn${state.notify[p.key]?' on':''}" onclick="toggleNotify('${p.key}',this)">${state.notify[p.key]?'🔔':'🔕'}</button>`:''}
       </div>
     `;
     list.appendChild(card);
-
     // Azan trigger
     if(state.azanOn&&state.notify[p.key]&&p.key!=='sunrise'){
       const todayKey=`${now.toDateString()}-${p.key}`;
       const nowInt=now.getHours()*60+now.getMinutes();
       if(!isNaN(tm)&&Math.abs(nowInt-tm)<1&&!state.azanPlayed[todayKey]){
         state.azanPlayed[todayKey]=true;
-        playAzan(p.ar);
+        playAzan(p.ar,p.key);
       }
     }
   });
 }
 
-/* ─────────────────────────────────── AZAN ──────────────── */
-function playAzan(name){
-  state.azanPlaying=true;
+/* ══════════════════════════════════════════════════════
+   AZAN PLAYBACK
+══════════════════════════════════════════════════════ */
+function playAzan(name,key) {
+  if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}
   document.getElementById('azanDot').classList.add('playing');
   document.getElementById('azanTxt').textContent=`🕌 الأذان — حان وقت صلاة ${name}`;
   document.getElementById('stopBtn').style.display='inline-block';
 
-  const audio=document.getElementById('azanAudio');
-  audio.play().catch(()=>playBeeps());
+  const el=document.getElementById('audio_'+key);
+  if(!el||!el.src||el.src===window.location.href){playBeeps();return;}
+  currentAudio=el;
+  currentAudio.currentTime=0;
+  currentAudio.play()
+    .then(()=>{currentAudio.onended=stopAzan;})
+    .catch(()=>playBeeps());
 }
 
-function playBeeps(){
+function playBeeps() {
   try{
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
     [1,.9,1.1,.9,1.2,.9,1,.9].forEach((f,i)=>{
@@ -731,74 +831,68 @@ function playBeeps(){
       osc.connect(g);g.connect(ctx.destination);
       osc.type='sine';osc.frequency.value=440*f;
       const t=ctx.currentTime+i*.55;
-      g.gain.setValueAtTime(.28,t);
-      g.gain.exponentialRampToValueAtTime(.001,t+.45);
+      g.gain.setValueAtTime(.28,t);g.gain.exponentialRampToValueAtTime(.001,t+.45);
       osc.start(t);osc.stop(t+.5);
     });
-  }catch(e){}
+    setTimeout(stopAzan,5000);
+  }catch(e){stopAzan();}
 }
 
-function stopAzan(){
-  state.azanPlaying=false;
-  const a=document.getElementById('azanAudio');
-  a.pause();a.currentTime=0;
+function stopAzan() {
+  if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;currentAudio=null;}
   document.getElementById('azanDot').classList.remove('playing');
   document.getElementById('azanTxt').textContent='الإشعارات مفعّلة — سيرفع الأذان عند دخول وقت الصلاة';
   document.getElementById('stopBtn').style.display='none';
 }
 
-function toggleAzan(){
+function toggleAzan() {
   state.azanOn=!state.azanOn;
   const chip=document.getElementById('azanChip');
   chip.textContent=state.azanOn?'🔔 الأذان مفعّل':'🔕 الأذان موقوف';
   chip.classList.toggle('on',state.azanOn);
   document.getElementById('azanTxt').textContent=state.azanOn
-    ?'الإشعارات مفعّلة — سيرفع الأذان عند دخول وقت الصلاة'
-    :'الأذان موقوف مؤقتاً';
+    ?'الإشعارات مفعّلة — سيرفع الأذان عند دخول وقت الصلاة':'الأذان موقوف مؤقتاً';
 }
 
-function toggleNotify(key,btn){
+function toggleNotify(key,btn) {
   state.notify[key]=!state.notify[key];
   btn.textContent=state.notify[key]?'🔔':'🔕';
   btn.classList.toggle('on',state.notify[key]);
 }
 
-/* ─────────────────────────────────── TOAST ─────────────── */
-function showToast(msg){
+/* ══ TOAST ══ */
+function showToast(msg) {
   let t=document.getElementById('toast');
   if(!t){
     t=document.createElement('div');t.id='toast';
-    t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);'+
-      'background:rgba(201,168,76,.9);color:#0a1628;font-family:Cairo,sans-serif;'+
-      'font-size:13px;padding:8px 20px;border-radius:20px;z-index:999;'+
-      'transition:opacity .4s;pointer-events:none;';
+    t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);'+
+      'background:rgba(201,168,76,.92);color:#0a1628;font-family:Cairo,sans-serif;'+
+      'font-size:13px;padding:8px 22px;border-radius:20px;z-index:999;'+
+      'transition:opacity .4s;pointer-events:none;white-space:nowrap;';
     document.body.appendChild(t);
   }
   t.textContent=msg;t.style.opacity='1';
-  clearTimeout(t._timer);
-  t._timer=setTimeout(()=>t.style.opacity='0',2500);
+  clearTimeout(t._t);t._t=setTimeout(()=>t.style.opacity='0',2500);
 }
 
-/* ─────────────────────────────────── GEOLOC ────────────── */
+/* ══ GEOLOC ══ */
 if(navigator.geolocation){
   navigator.geolocation.getCurrentPosition(pos=>{
-    state.lat=pos.coords.latitude;
-    state.lng=pos.coords.longitude;
+    state.lat=pos.coords.latitude;state.lng=pos.coords.longitude;
     state.tz=-(new Date().getTimezoneOffset()/60);
     state.cityName=`${state.lat.toFixed(2)},${state.lng.toFixed(2)}`;
     fetch(`https://nominatim.openstreetmap.org/reverse?lat=${state.lat}&lon=${state.lng}&format=json&accept-language=ar`)
       .then(r=>r.json()).then(d=>{
-        const city=d.address?.city||d.address?.town||d.address?.village||d.address?.state||'';
-        const country=d.address?.country||'';
+        const city=d.address?.city||d.address?.town||d.address?.village||'';
         if(city)state.cityName=city;
-        if(country)state.countryName=country;
         updateAll();
       }).catch(()=>updateAll());
   },()=>updateAll());
 }
 
-/* ─────────────────────────────────── INIT ──────────────── */
+/* ══ INIT ══ */
 buildSelects();
+updateAudioSources();
 updateAll();
 setInterval(updateAll,1000);
 </script>
