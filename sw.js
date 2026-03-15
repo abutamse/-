@@ -9,7 +9,7 @@ const CACHE_NAME = 'prayer-times-v1';
 
 /* الملفات التي تُخزَّن في الكاش */
 const CACHE_FILES = [
-  './prayer_times.html',
+  './index.html',
   './manifest.json',
   'https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap',
 ];
@@ -84,7 +84,7 @@ function sendAzanNotification(prayerName, key) {
     renotify: true,
     requireInteraction: true,
     vibrate: [300, 100, 300, 100, 300],
-    data: { key, url: './prayer_times.html' },
+    data: { key, url: './index.html' },
   });
 }
 
