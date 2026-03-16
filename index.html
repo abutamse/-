@@ -496,18 +496,61 @@ const PRAYERS_META = [
 <audio id="audioNormal"  preload="none"></audio>
 
 <script>
-/* ═══ STATE ═══ */
-let S = {
+/* ═══════════════════════════════════════════════════════
+   STATE — مع حفظ تلقائي في localStorage
+═══════════════════════════════════════════════════════ */
+
+const DEFAULT_STATE = {
   lat:21.39, lng:39.85, tz:3,
   cityName:'مكة المكرمة', countryName:'السعودية',
   methodIdx:0,
-  muezzinIdx:0,   /* المؤذن المختار — يشير إلى MUEZZINS[idx] */
+  muezzinIdx:0,
   azanOn:true,
   notify:{fajr:true,sunrise:false,dhuhr:true,asr:true,maghrib:true,isha:true},
   adj:   {fajr:0,sunrise:0,dhuhr:0,asr:0,maghrib:0,isha:0},
   adjTmp:{fajr:0,sunrise:0,dhuhr:0,asr:0,maghrib:0,isha:0},
   played:{},
 };
+
+/* تحميل الإعدادات المحفوظة */
+function loadState(){
+  try{
+    const saved = localStorage.getItem('prayerAppState');
+    if(!saved) return {...DEFAULT_STATE};
+    const parsed = JSON.parse(saved);
+    /* دمج مع الافتراضي لضمان وجود كل المفاتيح */
+    return {
+      ...DEFAULT_STATE,
+      ...parsed,
+      notify: {...DEFAULT_STATE.notify, ...(parsed.notify||{})},
+      adj:    {...DEFAULT_STATE.adj,    ...(parsed.adj||{})},
+      adjTmp: {...DEFAULT_STATE.adjTmp, ...(parsed.adjTmp||{})},
+      played: {}, /* played يُصفَّر دائماً عند الفتح */
+    };
+  }catch(e){ return {...DEFAULT_STATE}; }
+}
+
+/* حفظ الإعدادات (بدون played لأنها مؤقتة) */
+function saveState(){
+  try{
+    const toSave = {
+      lat:       S.lat,
+      lng:       S.lng,
+      tz:        S.tz,
+      cityName:  S.cityName,
+      countryName:S.countryName,
+      methodIdx: S.methodIdx,
+      muezzinIdx:S.muezzinIdx,
+      azanOn:    S.azanOn,
+      notify:    S.notify,
+      adj:       S.adj,
+      adjTmp:    S.adjTmp,
+    };
+    localStorage.setItem('prayerAppState', JSON.stringify(toSave));
+  }catch(e){}
+}
+
+let S = loadState();
 let currentAudio = null;
 
 /* ═══ STARS ═══ */
@@ -555,6 +598,7 @@ function selectMuezzin(i){
   stopAzan();
   loadMuezzinAudio();
   buildMuezzinGrid();
+  saveState();
   document.getElementById('methodNote').textContent=
     `طريقة: ${METHODS[S.methodIdx].name} · مؤذن: ${MUEZZINS[S.muezzinIdx].name}`;
   showToast('تم اختيار: '+MUEZZINS[i].name);
@@ -611,7 +655,14 @@ function testAzan(){
 function buildSelects(){
   const cs=document.getElementById('countrySelect');
   Object.keys(CITIES).forEach(c=>{const o=document.createElement('option');o.value=o.textContent=c;cs.appendChild(o);});
-  cs.value=S.countryName; buildCitySelect(S.countryName);
+  /* اختر الدولة المحفوظة */
+  cs.value=S.countryName;
+  buildCitySelect(S.countryName);
+  /* اختر المدينة المحفوظة */
+  const cities=CITIES[S.countryName]||[];
+  const cityIdx=cities.findIndex(c=>c.name===S.cityName);
+  if(cityIdx>=0) document.getElementById('citySelect').value=cityIdx;
+  /* طريقة الحساب */
   const ms=document.getElementById('methodSelect');
   METHODS.forEach((m,i)=>{const o=document.createElement('option');o.value=i;o.textContent=m.name;ms.appendChild(o);});
   ms.value=S.methodIdx;
@@ -625,15 +676,15 @@ function onCountryChange(){
   S.countryName=cn; buildCitySelect(cn);
   const c=(CITIES[cn]||[])[0];
   if(c){S.lat=c.lat;S.lng=c.lng;S.tz=c.tz;S.cityName=c.name;}
-  updateAll();
+  saveState(); updateAll();
 }
 function onCityChange(){
   const cn=document.getElementById('countrySelect').value;
   const c=CITIES[cn][parseInt(document.getElementById('citySelect').value)];
   S.lat=c.lat;S.lng=c.lng;S.tz=c.tz;S.cityName=c.name;S.countryName=cn;
-  updateAll();
+  saveState(); updateAll();
 }
-function onMethodChange(){S.methodIdx=parseInt(document.getElementById('methodSelect').value);updateAll();}
+function onMethodChange(){S.methodIdx=parseInt(document.getElementById('methodSelect').value);saveState();updateAll();}
 function applyManual(){
   const lt=parseFloat(document.getElementById('manLat').value);
   const ln=parseFloat(document.getElementById('manLng').value);
@@ -641,7 +692,7 @@ function applyManual(){
   if(isNaN(lt)||isNaN(ln)){alert('الرجاء إدخال الإحداثيات');return;}
   S.lat=lt;S.lng=ln;S.tz=isNaN(tz)?3:tz;
   S.cityName=`${lt.toFixed(2)},${ln.toFixed(2)}`;S.countryName='مخصص';
-  updateAll();
+  saveState(); updateAll();
 }
 
 /* ═══ ADJ ═══ */
@@ -665,7 +716,7 @@ function liveAdj(k,v){
 }
 function applyAdj(){
   PRAYERS_META.forEach(p=>{S.adj[p.key]=S.adjTmp[p.key];});
-  updateAll(); showToast('تم تطبيق التعديلات ✓');
+  saveState(); updateAll(); showToast('تم تطبيق التعديلات ✓');
 }
 
 /* ═══ PANELS ═══ */
@@ -857,12 +908,14 @@ function toggleAzan(){
   c.classList.toggle('on',S.azanOn);
   document.getElementById('azanTxt').textContent=S.azanOn
     ?'الإشعارات مفعّلة — سيرفع الأذان عند دخول وقت الصلاة':'الأذان موقوف مؤقتاً';
+  saveState();
 }
 
 function toggleNotify(k,btn){
   S.notify[k]=!S.notify[k];
   btn.textContent=S.notify[k]?'🔔':'🔕';
   btn.classList.toggle('on',S.notify[k]);
+  saveState();
 }
 
 /* ═══ TOAST ═══ */
@@ -898,6 +951,23 @@ if(navigator.geolocation){
 /* ═══ INIT ═══ */
 buildSelects();
 loadMuezzinAudio();
+
+/* استعادة واجهة المستخدم من الإعدادات المحفوظة */
+(function restoreUI(){
+  /* الأذان */
+  const azanChip=document.getElementById('azanChip');
+  azanChip.textContent=S.azanOn?'🔔 الأذان مفعّل':'🔕 الأذان موقوف';
+  azanChip.classList.toggle('on',S.azanOn);
+  if(!S.azanOn) document.getElementById('azanTxt').textContent='الأذان موقوف مؤقتاً';
+
+  /* المؤذن */
+  const bgBtn=document.getElementById('bgBtn');
+  if(Notification.permission==='granted' && bgBtn){
+    bgBtn.textContent='🔔 الإشعارات مفعّلة';
+    bgBtn.classList.add('on');
+  }
+})();
+
 updateAll();
 setInterval(updateAll,1000);
 
