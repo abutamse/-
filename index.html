@@ -13,98 +13,94 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --gold:#c9a84c; --gold-light:#e8d5a3; --gold-dim:rgba(201,168,76,.2);
-  --blue-dim:#8fafd4; --card:rgba(255,255,255,.05); --card-border:rgba(255,255,255,.09);
-  --active-card:rgba(201,168,76,.10); --active-border:rgba(201,168,76,.35);
-}
+* { margin:0; padding:0; -webkit-box-sizing:border-box; box-sizing:border-box; }
 body {
-  font-family:'Cairo',sans-serif;
+  font-family:Arial,Tahoma,sans-serif;
+  background:#0d1f3c;
+  background:-webkit-linear-gradient(160deg,#0a1628 0%,#1a2a4a 60%,#0d1f3c 100%);
   background:linear-gradient(160deg,#0a1628 0%,#1a2a4a 60%,#0d1f3c 100%);
-  min-height:100vh; color:var(--gold-light); overflow-x:hidden;
+  min-height:100vh; color:#e8d5a3; overflow-x:hidden;
 }
 .star {
   position:fixed; border-radius:50%; background:#fff;
   pointer-events:none; z-index:0;
-  animation:twinkle var(--dur,3s) infinite alternate;
+  -webkit-animation-name:twinkle; animation-name:twinkle;
+  -webkit-animation-duration:3s; animation-duration:3s;
+  -webkit-animation-iteration-count:infinite; animation-iteration-count:infinite;
+  -webkit-animation-direction:alternate; animation-direction:alternate;
 }
+@-webkit-keyframes twinkle { 0%{opacity:.15;-webkit-transform:scale(1);transform:scale(1)} 100%{opacity:.75;-webkit-transform:scale(1.4);transform:scale(1.4)} }
 @keyframes twinkle { 0%{opacity:.15;transform:scale(1)} 100%{opacity:.75;transform:scale(1.4)} }
 
 .wrap { position:relative; z-index:1; max-width:480px; margin:0 auto; padding:20px 16px 100px; }
 
 /* HEADER */
 .header { text-align:center; padding:20px 0 14px; }
-.header .moon { font-size:50px; display:block; margin-bottom:6px; filter:drop-shadow(0 0 18px rgba(232,213,163,.45)); }
-.header h1 { font-family:'Amiri',serif; font-size:30px; color:var(--gold-light); text-shadow:0 0 22px rgba(232,213,163,.35); margin-bottom:3px; }
-.date-gr { font-size:13px; color:var(--blue-dim); margin-bottom:2px; }
-.date-hi { font-family:'Amiri',serif; font-size:15px; color:var(--gold); margin-bottom:12px; opacity:.85; }
+.header .moon { font-size:50px; display:block; margin-bottom:6px; }
+.header h1 { font-family:Arial,Tahoma,serif; font-size:30px; color:#e8d5a3; margin-bottom:3px; }
+.date-gr { font-size:13px; color:#8fafd4; margin-bottom:2px; }
+.date-hi { font-size:15px; color:#c9a84c; margin-bottom:12px; opacity:.85; }
 
 /* NEXT PRAYER */
 .next-card {
-  background:linear-gradient(135deg,rgba(232,213,163,.10),rgba(100,140,200,.10));
+  background:rgba(180,180,200,.10);
   border:1px solid rgba(232,213,163,.22); border-radius:20px; padding:20px; margin:0 0 14px; text-align:center;
 }
-.next-lbl { font-size:11px; color:var(--blue-dim); letter-spacing:2px; margin-bottom:4px; }
-.next-name { font-family:'Amiri',serif; font-size:34px; color:var(--gold-light); margin-bottom:4px; }
-.countdown { font-size:44px; font-weight:700; color:var(--gold); letter-spacing:3px; text-shadow:0 0 28px rgba(201,168,76,.38); margin:6px 0 2px; font-variant-numeric:tabular-nums; }
-.cdown-lbl { font-size:11px; color:var(--blue-dim); }
+.next-lbl { font-size:11px; color:#8fafd4; letter-spacing:2px; margin-bottom:4px; }
+.next-name { font-size:34px; color:#e8d5a3; margin-bottom:4px; }
+.countdown { font-size:44px; font-weight:700; color:#c9a84c; letter-spacing:3px; margin:6px 0 2px; }
+.cdown-lbl { font-size:11px; color:#8fafd4; }
 
 /* AZAN BAR */
 .azan-bar {
-  display:flex; align-items:center; gap:10px;
+  display:block; overflow:hidden;
   background:rgba(0,0,0,.28); border:1px solid rgba(201,168,76,.25);
   border-radius:14px; padding:11px 15px; margin-bottom:12px;
 }
-.azan-dot { width:10px; height:10px; border-radius:50%; background:var(--gold); flex-shrink:0; transition:background .3s; }
-.azan-dot.playing { background:#4caf50; animation:pulse 1s infinite; }
+.azan-dot { width:10px; height:10px; border-radius:50%; background:#c9a84c; float:right; margin-left:10px; margin-top:3px; }
+.azan-dot.playing { background:#4caf50; -webkit-animation:pulse 1s infinite; animation:pulse 1s infinite; }
+@-webkit-keyframes pulse { 0%,100%{-webkit-transform:scale(1);transform:scale(1);opacity:1} 50%{-webkit-transform:scale(1.5);transform:scale(1.5);opacity:.6} }
 @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.5);opacity:.6} }
-.azan-txt { font-size:13px; color:var(--blue-dim); flex:1; }
+.azan-txt { font-size:13px; color:#8fafd4; }
 .stop-btn {
   background:rgba(255,80,80,.14); border:1px solid rgba(255,80,80,.3); border-radius:8px;
-  padding:4px 11px; cursor:pointer; color:#ff8080; font-size:12px; font-family:'Cairo',sans-serif;
-  transition:all .2s; display:none;
+  padding:4px 11px; color:#ff8080; font-size:12px; font-family:Arial,sans-serif;
+  display:none; float:left;
 }
-.stop-btn:hover { background:rgba(255,80,80,.26); }
 
 /* TOOLBAR */
-.toolbar { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:12px; }
+.toolbar { overflow:hidden; margin-bottom:12px; }
 .chip {
   background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.11);
-  border-radius:20px; padding:6px 14px; font-size:12px; color:var(--blue-dim);
-  cursor:pointer; transition:all .2s; font-family:'Cairo',sans-serif; white-space:nowrap;
+  border-radius:20px; padding:6px 14px; font-size:12px; color:#8fafd4;
+  font-family:Arial,sans-serif; white-space:nowrap;
+  display:inline-block; margin:0 0 6px 6px;
 }
-.chip:hover,.chip.on { background:var(--gold-dim); border-color:rgba(201,168,76,.38); color:var(--gold); }
+.chip.on { background:rgba(201,168,76,.2); border-color:rgba(201,168,76,.38); color:#c9a84c; }
 
 /* PRAYERS LIST */
-.prayers { display:flex; flex-direction:column; gap:7px; margin-bottom:14px; }
+.prayers { margin-bottom:14px; }
 .pcard {
-  display:flex; align-items:center; justify-content:space-between;
-  background:var(--card); border:1px solid var(--card-border);
-  border-radius:14px; padding:13px 17px; transition:all .3s; position:relative; overflow:hidden;
+  overflow:hidden;
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09);
+  border-radius:14px; padding:13px 17px; margin-bottom:7px; position:relative;
 }
-.pcard::after {
-  content:''; position:absolute; right:0; top:0; bottom:0; width:3px;
-  background:transparent; border-radius:0 14px 14px 0; transition:background .3s;
-}
-.pcard.active { background:var(--active-card); border-color:var(--active-border); box-shadow:0 0 18px rgba(201,168,76,.09); }
-.pcard.active::after { background:var(--gold); }
+.pcard.active { background:rgba(201,168,76,.10); border-color:rgba(201,168,76,.35); border-right:3px solid #c9a84c; }
 .pcard.passed { opacity:.45; }
-.pcard-left { display:flex; align-items:center; gap:11px; }
-.picon { width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:19px; background:rgba(255,255,255,.07); }
+.pcard-left { float:right; }
+.pcard-right { float:left; }
+.picon { width:38px; height:38px; border-radius:50%; text-align:center; line-height:38px; font-size:19px; background:rgba(255,255,255,.07); float:right; margin-left:11px; }
 .pcard.active .picon { background:rgba(201,168,76,.18); }
-.pname-ar { font-family:'Amiri',serif; font-size:21px; color:var(--gold-light); line-height:1.1; display:block; }
-.pname-en { font-size:11px; color:var(--blue-dim); }
-.pcard-right { display:flex; align-items:center; gap:9px; }
-.ptime { font-size:20px; font-weight:600; color:var(--gold-light); font-variant-numeric:tabular-nums; }
-.pcard.active .ptime { color:var(--gold); }
+.pname-ar { font-family:Arial,serif; font-size:21px; color:#e8d5a3; line-height:1.1; display:block; }
+.pname-en { font-size:11px; color:#8fafd4; }
+.ptime { font-size:20px; font-weight:600; color:#e8d5a3; }
+.pcard.active .ptime { color:#c9a84c; }
 .notif-btn {
   background:none; border:1px solid rgba(255,255,255,.14); border-radius:8px;
-  padding:4px 8px; cursor:pointer; color:var(--blue-dim); font-size:14px; transition:all .2s;
+  padding:4px 8px; color:#8fafd4; font-size:14px; margin-right:6px;
 }
-.notif-btn.on { background:var(--gold-dim); border-color:rgba(201,168,76,.38); color:var(--gold); }
+.notif-btn.on { background:rgba(201,168,76,.2); border-color:rgba(201,168,76,.38); color:#c9a84c; }
 
 /* PANEL */
 .panel {
@@ -113,74 +109,73 @@ body {
 }
 .panel.open { display:block; }
 .panel-title {
-  font-family:'Amiri',serif; font-size:18px; color:var(--gold); margin-bottom:14px;
+  font-family:Arial,serif; font-size:18px; color:#c9a84c; margin-bottom:14px;
   text-align:center; border-bottom:1px solid rgba(201,168,76,.18); padding-bottom:10px;
 }
 
-/* MUEZZIN CARDS */
-.muezzin-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:12px; }
+/* MUEZZIN CARDS (float-based 2-column layout instead of CSS grid) */
+.muezzin-grid { overflow:hidden; margin-bottom:12px; }
 .mcard {
   background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
-  border-radius:12px; padding:12px; cursor:pointer; transition:all .2s; text-align:center;
+  border-radius:12px; padding:12px; text-align:center;
+  display:inline-block; width:47%; margin:0 0 8px 4%; vertical-align:top;
 }
-.mcard:hover { background:rgba(201,168,76,.1); border-color:rgba(201,168,76,.3); }
-.mcard.selected { background:rgba(201,168,76,.15); border-color:rgba(201,168,76,.5); box-shadow:0 0 12px rgba(201,168,76,.15); }
+.mcard.selected { background:rgba(201,168,76,.15); border-color:rgba(201,168,76,.5); }
 .mcard-icon { font-size:24px; display:block; margin-bottom:5px; }
-.mcard-name { font-size:13px; color:var(--gold-light); font-weight:600; margin-bottom:2px; line-height:1.3; }
-.mcard-sub  { font-size:11px; color:var(--blue-dim); }
+.mcard-name { font-size:13px; color:#e8d5a3; font-weight:600; margin-bottom:2px; line-height:1.3; }
+.mcard-sub  { font-size:11px; color:#8fafd4; }
 
 /* FILE STATUS */
 .file-row {
-  display:flex; align-items:center; gap:8px;
+  display:block; overflow:hidden;
   font-size:12px; padding:6px 10px; border-radius:8px; margin-bottom:5px;
 }
+.file-row span { float:right; margin-left:8px; }
 .file-row.ok   { background:rgba(100,200,100,.09); color:#90d490; border:1px solid rgba(100,200,100,.2); }
 .file-row.miss { background:rgba(255,100,100,.07); color:#ff9090; border:1px solid rgba(255,100,100,.18); }
-.file-row.chk  { background:rgba(255,255,255,.04); color:var(--blue-dim); border:1px solid rgba(255,255,255,.08); }
-.file-name { font-family:monospace; font-size:11px; margin-right:auto; opacity:.7; }
+.file-row.chk  { background:rgba(255,255,255,.04); color:#8fafd4; border:1px solid rgba(255,255,255,.08); }
+.file-name { font-family:monospace; font-size:11px; float:left !important; opacity:.7; }
 
 /* SELECTS */
-.sel-row { display:flex; gap:8px; margin-bottom:10px; }
-.sel-wrap { flex:1; }
-.lbl { font-size:12px; color:var(--blue-dim); margin-bottom:4px; display:block; }
+.sel-row { overflow:hidden; margin-bottom:10px; }
+.sel-wrap { float:right; width:48%; margin-left:4%; }
+.sel-wrap:last-child { margin-left:0; }
+.lbl { font-size:12px; color:#8fafd4; margin-bottom:4px; display:block; }
 select, input[type=number] {
   width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
-  border-radius:10px; padding:9px 12px; color:var(--gold-light);
-  font-family:'Cairo',sans-serif; font-size:13px; appearance:none; cursor:pointer;
+  border-radius:10px; padding:9px 12px; color:#e8d5a3;
+  font-family:Arial,sans-serif; font-size:13px;
+  -webkit-appearance:none; appearance:none;
 }
-select:focus,input:focus { outline:none; border-color:rgba(201,168,76,.5); }
-select option { background:#1a2a4a; color:var(--gold-light); }
+select option { background:#1a2a4a; color:#e8d5a3; }
 
 /* SLIDERS */
-.adj-row { display:flex; align-items:center; gap:10px; margin-bottom:9px; }
-.adj-lbl { font-family:'Amiri',serif; font-size:16px; color:var(--gold-light); width:60px; flex-shrink:0; }
-.adj-val { font-size:13px; color:var(--gold); width:46px; text-align:center; flex-shrink:0; }
+.adj-row { overflow:hidden; margin-bottom:9px; }
+.adj-lbl { font-family:Arial,serif; font-size:16px; color:#e8d5a3; width:60px; float:right; }
+.adj-val { font-size:13px; color:#c9a84c; width:46px; text-align:center; float:left; }
 input[type=range] {
-  -webkit-appearance:none; appearance:none; flex:1; height:4px;
-  border-radius:2px; background:rgba(255,255,255,.15); cursor:pointer; padding:0; border:none;
+  -webkit-appearance:none; appearance:none; width:60%; height:4px; float:right;
+  border-radius:2px; background:rgba(255,255,255,.15); margin:8px 4px 0;
 }
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance:none; width:16px; height:16px; border-radius:50%;
-  background:var(--gold); cursor:pointer; margin-top:-6px; box-shadow:0 0 6px rgba(201,168,76,.5);
-}
-input[type=range]::-moz-range-thumb {
-  width:16px; height:16px; border-radius:50%; background:var(--gold); cursor:pointer; border:none;
+  background:#c9a84c; margin-top:-6px;
 }
 
 /* BUTTONS */
 .apply-btn {
   width:100%; margin-top:12px;
+  background:rgba(201,168,76,.2);
+  background:-webkit-linear-gradient(135deg,rgba(201,168,76,.28),rgba(201,168,76,.14));
   background:linear-gradient(135deg,rgba(201,168,76,.28),rgba(201,168,76,.14));
   border:1px solid rgba(201,168,76,.4); border-radius:11px; padding:11px;
-  color:var(--gold); font-family:'Cairo',sans-serif; font-size:14px; cursor:pointer; transition:all .2s;
+  color:#c9a84c; font-family:Arial,sans-serif; font-size:14px;
 }
-.apply-btn:hover { background:linear-gradient(135deg,rgba(201,168,76,.4),rgba(201,168,76,.24)); }
 .test-btn {
   width:100%; margin-top:8px; background:rgba(100,180,100,.10);
   border:1px solid rgba(100,180,100,.3); border-radius:11px; padding:9px;
-  color:#90d490; font-family:'Cairo',sans-serif; font-size:13px; cursor:pointer; transition:all .2s;
+  color:#90d490; font-family:Arial,sans-serif; font-size:13px;
 }
-.test-btn:hover { background:rgba(100,180,100,.2); }
 
 .footer-note { text-align:center; font-size:11px; color:rgba(143,175,212,.4); margin-top:8px; }
 
@@ -190,213 +185,12 @@ input[type=range]::-moz-range-thumb {
   border-radius:10px; padding:12px 14px; margin-top:10px;
   font-size:12px; line-height:2;
 }
-.files-guide .gtitle { color:var(--gold); font-weight:600; margin-bottom:4px; display:block; }
+.files-guide .gtitle { color:#c9a84c; font-weight:600; margin-bottom:4px; display:block; }
 .files-guide .gfile  { font-family:monospace; color:#a0c8f0; font-size:11.5px; }
 .files-guide .gsep   { color:rgba(143,175,212,.3); margin:4px 0; display:block; border-top:1px solid rgba(255,255,255,.06); }
 </style>
 </head>
 <body>
-
-<script>
-/* ═══════════════════════════════════════════════════════════════
-   قائمة المؤذنين — كل مؤذن له ملفان فقط بجانب الـ HTML مباشرة:
-     • ملف الأذان العادي  (للظهر / العصر / المغرب / العشاء)
-     • ملف أذان الفجر     (يحتوي على "الصلاة خير من النوم")
-
-   تسمية الملفات:
-     mekka.mp3          mekkalfajr.mp3
-     almadina.mp3       almadinaalfajr.mp3
-     alquds.mp3         alqudsalfajr.mp3
-     abdulbasit.mp3     abdulbasitalfajr.mp3
-═══════════════════════════════════════════════════════════════ */
-const MUEZZINS = [
-  {
-    id:      'mekka',
-    name:    'أذان مكة المكرمة',
-    sub:     'الحرم المكي الشريف',
-    icon:    '🕋',
-    file:    'mekka.mp3',        /* الظهر / العصر / المغرب / العشاء */
-    fajr:    'mekkalfajr.mp3',   /* الفجر */
-  },
-  {
-    id:      'almadina',
-    name:    'أذان المدينة المنورة',
-    sub:     'المسجد النبوي الشريف',
-    icon:    '🌿',
-    file:    'almadina.mp3',
-    fajr:    'almadinaalfajr.mp3',
-  },
-  {
-    id:      'alquds',
-    name:    'أذان القدس',
-    sub:     'المسجد الأقصى المبارك',
-    icon:    '🌙',
-    file:    'alquds.mp3',
-    fajr:    'alqudsalfajr.mp3',
-  },
-  {
-    id:      'abdulbasit',
-    name:    'عبد الباسط عبد الصمد',
-    sub:     'مصر',
-    icon:    '🎙️',
-    file:    'abdulbasit.mp3',
-    fajr:    'abdulbasitalfajr.mp3',
-  },
-];
-
-/* ═══ المدن ═══ */
-const CITIES = {
-  "السعودية": [
-    {name:"مكة المكرمة",    lat:21.39, lng:39.85, tz:3},
-    {name:"المدينة المنورة", lat:24.47, lng:39.61, tz:3},
-    {name:"الرياض",          lat:24.68, lng:46.72, tz:3},
-    {name:"جدة",             lat:21.54, lng:39.17, tz:3},
-    {name:"الدمام",          lat:26.39, lng:49.99, tz:3},
-    {name:"أبها",            lat:18.22, lng:42.51, tz:3},
-  ],
-  "مصر": [
-    {name:"القاهرة",    lat:30.06, lng:31.25, tz:2},
-    {name:"الإسكندرية", lat:31.20, lng:29.92, tz:2},
-    {name:"الأقصر",    lat:25.69, lng:32.64, tz:2},
-    {name:"أسوان",     lat:24.09, lng:32.90, tz:2},
-    {name:"طنطا",      lat:30.79, lng:31.00, tz:2},
-  ],
-  "فلسطين": [
-    {name:"القدس",      lat:31.78, lng:35.22, tz:2},
-    {name:"غزة",       lat:31.52, lng:34.46, tz:2},
-    {name:"رام الله",  lat:31.90, lng:35.20, tz:2},
-    {name:"نابلس",     lat:32.22, lng:35.26, tz:2},
-  ],
-  "الإمارات": [
-    {name:"أبوظبي",  lat:24.47, lng:54.37, tz:4},
-    {name:"دبي",     lat:25.20, lng:55.27, tz:4},
-    {name:"الشارقة", lat:25.34, lng:55.39, tz:4},
-    {name:"عجمان",   lat:25.41, lng:55.44, tz:4},
-  ],
-  "الكويت":  [{name:"الكويت",   lat:29.37, lng:47.98, tz:3}],
-  "قطر":     [{name:"الدوحة",   lat:25.29, lng:51.53, tz:3}],
-  "البحرين": [{name:"المنامة",  lat:26.22, lng:50.59, tz:3}],
-  "عُمان": [
-    {name:"مسقط",  lat:23.61, lng:58.59, tz:4},
-    {name:"صلالة", lat:17.02, lng:54.09, tz:4},
-  ],
-  "اليمن": [
-    {name:"صنعاء", lat:15.37, lng:44.19, tz:3},
-    {name:"عدن",   lat:12.78, lng:45.03, tz:3},
-  ],
-  "الأردن": [
-    {name:"عمّان",  lat:31.96, lng:35.95, tz:2},
-    {name:"إربد",   lat:32.55, lng:35.85, tz:2},
-    {name:"الزرقاء",lat:32.07, lng:36.10, tz:2},
-  ],
-  "سوريا": [
-    {name:"دمشق",  lat:33.51, lng:36.29, tz:2},
-    {name:"حلب",   lat:36.20, lng:37.16, tz:2},
-    {name:"حمص",   lat:34.73, lng:36.72, tz:2},
-    {name:"اللاذقية",lat:35.52,lng:35.79,tz:2},
-  ],
-  "لبنان": [
-    {name:"بيروت",   lat:33.89, lng:35.50, tz:2},
-    {name:"طرابلس",  lat:34.43, lng:35.85, tz:2},
-    {name:"صيدا",    lat:33.56, lng:35.37, tz:2},
-  ],
-  "العراق": [
-    {name:"بغداد",  lat:33.34, lng:44.40, tz:3},
-    {name:"البصرة", lat:30.51, lng:47.82, tz:3},
-    {name:"الموصل", lat:36.34, lng:43.13, tz:3},
-    {name:"أربيل",  lat:36.19, lng:44.01, tz:3},
-  ],
-  "ليبيا": [
-    {name:"طرابلس", lat:32.90, lng:13.18, tz:2},
-    {name:"بنغازي", lat:32.11, lng:20.07, tz:2},
-  ],
-  "تونس": [
-    {name:"تونس",   lat:36.82, lng:10.18, tz:1},
-    {name:"صفاقس",  lat:34.74, lng:10.76, tz:1},
-  ],
-  "الجزائر": [
-    {name:"الجزائر", lat:36.74, lng:3.06,  tz:1},
-    {name:"وهران",   lat:35.70, lng:-0.63, tz:1},
-    {name:"قسنطينة",lat:36.36, lng:6.61,  tz:1},
-  ],
-  "المغرب": [
-    {name:"الرباط",        lat:34.02, lng:-6.84, tz:1},
-    {name:"الدار البيضاء", lat:33.59, lng:-7.62, tz:1},
-    {name:"مراكش",         lat:31.63, lng:-7.99, tz:1},
-    {name:"فاس",           lat:34.03, lng:-5.00, tz:1},
-    {name:"طنجة",          lat:35.77, lng:-5.80, tz:1},
-  ],
-  "موريتانيا": [{name:"نواكشوط", lat:18.08, lng:-15.97, tz:0}],
-  "السودان":   [{name:"الخرطوم", lat:15.55, lng:32.53,  tz:3}],
-  "الصومال":   [{name:"مقديشو",  lat:2.05,  lng:45.34,  tz:3}],
-  "تركيا": [
-    {name:"إسطنبول", lat:41.01, lng:28.95, tz:3},
-    {name:"أنقرة",   lat:39.92, lng:32.85, tz:3},
-    {name:"إزمير",   lat:38.42, lng:27.14, tz:3},
-  ],
-  "باكستان": [
-    {name:"كراتشي",     lat:24.86, lng:67.01, tz:5},
-    {name:"إسلام آباد", lat:33.72, lng:73.04, tz:5},
-    {name:"لاهور",      lat:31.55, lng:74.34, tz:5},
-  ],
-  "إيران":     [{name:"طهران",      lat:35.69, lng:51.39,  tz:3.5}],
-  "ماليزيا":   [{name:"كوالالمبور", lat:3.15,  lng:101.69, tz:8}],
-  "إندونيسيا": [{name:"جاكرتا",    lat:-6.21, lng:106.85, tz:7}],
-  "ألمانيا": [
-    {name:"برلين",     lat:52.52, lng:13.40, tz:1},
-    {name:"ميونيخ",    lat:48.14, lng:11.58, tz:1},
-    {name:"فرانكفورت", lat:50.11, lng:8.68,  tz:1},
-    {name:"كولونيا",   lat:50.94, lng:6.96,  tz:1},
-    {name:"هامبورغ",   lat:53.55, lng:10.00, tz:1},
-    {name:"دوسلدورف",  lat:51.22, lng:6.78,  tz:1},
-  ],
-  "فرنسا": [
-    {name:"باريس",   lat:48.86, lng:2.35, tz:1},
-    {name:"مرسيليا", lat:43.30, lng:5.37, tz:1},
-    {name:"ليون",    lat:45.75, lng:4.83, tz:1},
-  ],
-  "المملكة المتحدة": [
-    {name:"لندن",      lat:51.51, lng:-0.13, tz:0},
-    {name:"برمنغهام",  lat:52.48, lng:-1.90, tz:0},
-    {name:"مانشستر",   lat:53.48, lng:-2.24, tz:0},
-  ],
-  "الولايات المتحدة": [
-    {name:"نيويورك",     lat:40.71, lng:-74.01,  tz:-5},
-    {name:"لوس أنجلوس",  lat:34.05, lng:-118.24, tz:-8},
-    {name:"شيكاغو",      lat:41.88, lng:-87.63,  tz:-6},
-    {name:"ديربورن",     lat:42.32, lng:-83.18,  tz:-5},
-    {name:"هيوستن",      lat:29.76, lng:-95.37,  tz:-6},
-  ],
-  "كندا": [
-    {name:"تورنتو",   lat:43.65, lng:-79.38,  tz:-5},
-    {name:"مونتريال", lat:45.51, lng:-73.57,  tz:-5},
-    {name:"فانكوفر",  lat:49.28, lng:-123.12, tz:-8},
-  ],
-  "أستراليا": [
-    {name:"سيدني",  lat:-33.87, lng:151.21, tz:11},
-    {name:"ملبورن", lat:-37.81, lng:144.96, tz:11},
-  ],
-};
-
-const METHODS = [
-  {name:"أم القرى (السعودية)",       fajr:18.5, isha:"fix:90"},
-  {name:"رابطة العالم الإسلامي",     fajr:18,   isha:17},
-  {name:"مصر — الهيئة العامة",       fajr:19.5, isha:17.5},
-  {name:"ISNA (أمريكا الشمالية)",    fajr:15,   isha:15},
-  {name:"كراتشي (جنوب آسيا)",        fajr:18,   isha:18},
-  {name:"تونس / الجزائر / المغرب",   fajr:18,   isha:17},
-  {name:"ديانيت (تركيا)",            fajr:18,   isha:17},
-];
-
-const PRAYERS_META = [
-  {key:'fajr',    ar:'الفجر',  en:'Fajr',    icon:'🌅'},
-  {key:'sunrise', ar:'الشروق', en:'Sunrise',  icon:'☀️'},
-  {key:'dhuhr',   ar:'الظهر',  en:'Dhuhr',   icon:'🕛'},
-  {key:'asr',     ar:'العصر',  en:'Asr',     icon:'🌤️'},
-  {key:'maghrib', ar:'المغرب', en:'Maghrib', icon:'🌇'},
-  {key:'isha',    ar:'العشاء', en:'Isha',    icon:'🌙'},
-];
-</script>
 
 <!-- ═══════════ DOM ═══════════ -->
 <div class="wrap">
@@ -416,9 +210,9 @@ const PRAYERS_META = [
   </div>
 
   <div class="azan-bar">
+    <button class="stop-btn" id="stopBtn" onclick="stopAzan()">إيقاف</button>
     <div class="azan-dot" id="azanDot"></div>
     <span class="azan-txt" id="azanTxt">الإشعارات مفعّلة — سيرفع الأذان عند دخول وقت الصلاة</span>
-    <button class="stop-btn" id="stopBtn" onclick="stopAzan()">إيقاف</button>
   </div>
 
   <div class="toolbar">
@@ -469,18 +263,18 @@ const PRAYERS_META = [
     <label class="lbl">طريقة حساب المواقيت</label>
     <select id="methodSelect" onchange="onMethodChange()" style="margin-bottom:12px;"></select>
     <label class="lbl">أو أدخل الإحداثيات يدوياً</label>
-    <div style="display:flex;gap:8px;margin-bottom:8px;">
-      <input type="number" id="manLat" placeholder="خط العرض" step="0.001">
-      <input type="number" id="manLng" placeholder="خط الطول" step="0.001">
+    <div class="sel-row">
+      <div class="sel-wrap"><input type="number" id="manLat" placeholder="خط العرض" step="0.001"></div>
+      <div class="sel-wrap"><input type="number" id="manLng" placeholder="خط الطول" step="0.001"></div>
     </div>
-    <input type="number" id="manTz" placeholder="فارق التوقيت (مثال: 3)" step="0.5">
+    <input type="number" id="manTz" placeholder="فارق التوقيت (مثال: 3)" step="0.5" style="margin-bottom:8px;">
     <button class="apply-btn" onclick="applyManual()">✓ تطبيق الإحداثيات</button>
   </div>
 
   <!-- ADJ PANEL -->
   <div class="panel" id="adjPanel">
     <div class="panel-title">ضبط الأوقات بالدقائق</div>
-    <p style="font-size:12px;color:var(--blue-dim);text-align:center;margin-bottom:12px;">
+    <p style="font-size:12px;color:#8fafd4;text-align:center;margin-bottom:12px;">
       حرّك المنزلق لضبط كل وقت مع أذان بلدك (−30 إلى +30 دقيقة)
     </p>
     <div id="adjRows"></div>
@@ -497,10 +291,205 @@ const PRAYERS_META = [
 
 <script>
 /* ═══════════════════════════════════════════════════════
+   ES5-COMPATIBLE VERSION — للأجهزة القديمة (Android 4.0.4 / Opera Mini)
+   لا يستخدم: let/const, arrow functions, template literals,
+   destructuring, spread, optional chaining, async/await, fetch
+═══════════════════════════════════════════════════════ */
+
+var MUEZZINS = [
+  { id:'mekka',      name:'أذان مكة المكرمة',    sub:'الحرم المكي الشريف',   icon:'🕋',  file:'mekka.mp3',      fajr:'mekkalfajr.mp3' },
+  { id:'almadina',   name:'أذان المدينة المنورة', sub:'المسجد النبوي الشريف', icon:'🌿',  file:'almadina.mp3',   fajr:'almadinaalfajr.mp3' },
+  { id:'alquds',     name:'أذان القدس',           sub:'المسجد الأقصى المبارك',icon:'🌙',  file:'alquds.mp3',     fajr:'alqudsalfajr.mp3' },
+  { id:'abdulbasit', name:'عبد الباسط عبد الصمد', sub:'مصر',                 icon:'🎙️', file:'abdulbasit.mp3', fajr:'abdulbasitalfajr.mp3' }
+];
+
+var CITIES = {
+  "السعودية": [
+    {name:"مكة المكرمة",    lat:21.39, lng:39.85, tz:3},
+    {name:"المدينة المنورة", lat:24.47, lng:39.61, tz:3},
+    {name:"الرياض",          lat:24.68, lng:46.72, tz:3},
+    {name:"جدة",             lat:21.54, lng:39.17, tz:3},
+    {name:"الدمام",          lat:26.39, lng:49.99, tz:3},
+    {name:"أبها",            lat:18.22, lng:42.51, tz:3}
+  ],
+  "مصر": [
+    {name:"القاهرة",    lat:30.06, lng:31.25, tz:2},
+    {name:"الإسكندرية", lat:31.20, lng:29.92, tz:2},
+    {name:"الأقصر",    lat:25.69, lng:32.64, tz:2},
+    {name:"أسوان",     lat:24.09, lng:32.90, tz:2},
+    {name:"طنطا",      lat:30.79, lng:31.00, tz:2}
+  ],
+  "فلسطين": [
+    {name:"القدس",      lat:31.78, lng:35.22, tz:2},
+    {name:"غزة",       lat:31.52, lng:34.46, tz:2},
+    {name:"رام الله",  lat:31.90, lng:35.20, tz:2},
+    {name:"نابلس",     lat:32.22, lng:35.26, tz:2}
+  ],
+  "الإمارات": [
+    {name:"أبوظبي",  lat:24.47, lng:54.37, tz:4},
+    {name:"دبي",     lat:25.20, lng:55.27, tz:4},
+    {name:"الشارقة", lat:25.34, lng:55.39, tz:4},
+    {name:"عجمان",   lat:25.41, lng:55.44, tz:4}
+  ],
+  "الكويت":  [{name:"الكويت",   lat:29.37, lng:47.98, tz:3}],
+  "قطر":     [{name:"الدوحة",   lat:25.29, lng:51.53, tz:3}],
+  "البحرين": [{name:"المنامة",  lat:26.22, lng:50.59, tz:3}],
+  "عُمان": [
+    {name:"مسقط",  lat:23.61, lng:58.59, tz:4},
+    {name:"صلالة", lat:17.02, lng:54.09, tz:4}
+  ],
+  "اليمن": [
+    {name:"صنعاء", lat:15.37, lng:44.19, tz:3},
+    {name:"عدن",   lat:12.78, lng:45.03, tz:3}
+  ],
+  "الأردن": [
+    {name:"عمّان",  lat:31.96, lng:35.95, tz:2},
+    {name:"إربد",   lat:32.55, lng:35.85, tz:2},
+    {name:"الزرقاء",lat:32.07, lng:36.10, tz:2}
+  ],
+  "سوريا": [
+    {name:"دمشق",  lat:33.51, lng:36.29, tz:2},
+    {name:"حلب",   lat:36.20, lng:37.16, tz:2},
+    {name:"حمص",   lat:34.73, lng:36.72, tz:2},
+    {name:"اللاذقية",lat:35.52,lng:35.79,tz:2}
+  ],
+  "لبنان": [
+    {name:"بيروت",   lat:33.89, lng:35.50, tz:2},
+    {name:"طرابلس",  lat:34.43, lng:35.85, tz:2},
+    {name:"صيدا",    lat:33.56, lng:35.37, tz:2}
+  ],
+  "العراق": [
+    {name:"بغداد",  lat:33.34, lng:44.40, tz:3},
+    {name:"البصرة", lat:30.51, lng:47.82, tz:3},
+    {name:"الموصل", lat:36.34, lng:43.13, tz:3},
+    {name:"أربيل",  lat:36.19, lng:44.01, tz:3}
+  ],
+  "ليبيا": [
+    {name:"طرابلس", lat:32.90, lng:13.18, tz:2},
+    {name:"بنغازي", lat:32.11, lng:20.07, tz:2}
+  ],
+  "تونس": [
+    {name:"تونس",   lat:36.82, lng:10.18, tz:1},
+    {name:"صفاقس",  lat:34.74, lng:10.76, tz:1}
+  ],
+  "الجزائر": [
+    {name:"الجزائر", lat:36.74, lng:3.06,  tz:1},
+    {name:"وهران",   lat:35.70, lng:-0.63, tz:1},
+    {name:"قسنطينة",lat:36.36, lng:6.61,  tz:1}
+  ],
+  "المغرب": [
+    {name:"الرباط",        lat:34.02, lng:-6.84, tz:1},
+    {name:"الدار البيضاء", lat:33.59, lng:-7.62, tz:1},
+    {name:"مراكش",         lat:31.63, lng:-7.99, tz:1},
+    {name:"فاس",           lat:34.03, lng:-5.00, tz:1},
+    {name:"طنجة",          lat:35.77, lng:-5.80, tz:1}
+  ],
+  "موريتانيا": [{name:"نواكشوط", lat:18.08, lng:-15.97, tz:0}],
+  "السودان":   [{name:"الخرطوم", lat:15.55, lng:32.53,  tz:3}],
+  "الصومال":   [{name:"مقديشو",  lat:2.05,  lng:45.34,  tz:3}],
+  "تركيا": [
+    {name:"إسطنبول", lat:41.01, lng:28.95, tz:3},
+    {name:"أنقرة",   lat:39.92, lng:32.85, tz:3},
+    {name:"إزمير",   lat:38.42, lng:27.14, tz:3}
+  ],
+  "باكستان": [
+    {name:"كراتشي",     lat:24.86, lng:67.01, tz:5},
+    {name:"إسلام آباد", lat:33.72, lng:73.04, tz:5},
+    {name:"لاهور",      lat:31.55, lng:74.34, tz:5}
+  ],
+  "إيران":     [{name:"طهران",      lat:35.69, lng:51.39,  tz:3.5}],
+  "ماليزيا":   [{name:"كوالالمبور", lat:3.15,  lng:101.69, tz:8}],
+  "إندونيسيا": [{name:"جاكرتا",    lat:-6.21, lng:106.85, tz:7}],
+  "ألمانيا": [
+    {name:"برلين",     lat:52.52, lng:13.40, tz:1},
+    {name:"ميونيخ",    lat:48.14, lng:11.58, tz:1},
+    {name:"فرانكفورت", lat:50.11, lng:8.68,  tz:1},
+    {name:"كولونيا",   lat:50.94, lng:6.96,  tz:1},
+    {name:"هامبورغ",   lat:53.55, lng:10.00, tz:1},
+    {name:"دوسلدورف",  lat:51.22, lng:6.78,  tz:1}
+  ],
+  "فرنسا": [
+    {name:"باريس",   lat:48.86, lng:2.35, tz:1},
+    {name:"مرسيليا", lat:43.30, lng:5.37, tz:1},
+    {name:"ليون",    lat:45.75, lng:4.83, tz:1}
+  ],
+  "المملكة المتحدة": [
+    {name:"لندن",      lat:51.51, lng:-0.13, tz:0},
+    {name:"برمنغهام",  lat:52.48, lng:-1.90, tz:0},
+    {name:"مانشستر",   lat:53.48, lng:-2.24, tz:0}
+  ],
+  "الولايات المتحدة": [
+    {name:"نيويورك",     lat:40.71, lng:-74.01,  tz:-5},
+    {name:"لوس أنجلوس",  lat:34.05, lng:-118.24, tz:-8},
+    {name:"شيكاغو",      lat:41.88, lng:-87.63,  tz:-6},
+    {name:"ديربورن",     lat:42.32, lng:-83.18,  tz:-5},
+    {name:"هيوستن",      lat:29.76, lng:-95.37,  tz:-6}
+  ],
+  "كندا": [
+    {name:"تورنتو",   lat:43.65, lng:-79.38,  tz:-5},
+    {name:"مونتريال", lat:45.51, lng:-73.57,  tz:-5},
+    {name:"فانكوفر",  lat:49.28, lng:-123.12, tz:-8}
+  ],
+  "أستراليا": [
+    {name:"سيدني",  lat:-33.87, lng:151.21, tz:11},
+    {name:"ملبورن", lat:-37.81, lng:144.96, tz:11}
+  ]
+};
+
+var METHODS = [
+  {name:"أم القرى (السعودية)",       fajr:18.5, isha:"fix:90"},
+  {name:"رابطة العالم الإسلامي",     fajr:18,   isha:17},
+  {name:"مصر — الهيئة العامة",       fajr:19.5, isha:17.5},
+  {name:"ISNA (أمريكا الشمالية)",    fajr:15,   isha:15},
+  {name:"كراتشي (جنوب آسيا)",        fajr:18,   isha:18},
+  {name:"تونس / الجزائر / المغرب",   fajr:18,   isha:17},
+  {name:"ديانيت (تركيا)",            fajr:18,   isha:17}
+];
+
+var PRAYERS_META = [
+  {key:'fajr',    ar:'الفجر',  en:'Fajr',    icon:'🌅'},
+  {key:'sunrise', ar:'الشروق', en:'Sunrise', icon:'☀️'},
+  {key:'dhuhr',   ar:'الظهر',  en:'Dhuhr',   icon:'🕛'},
+  {key:'asr',     ar:'العصر',  en:'Asr',     icon:'🌤️'},
+  {key:'maghrib', ar:'المغرب', en:'Maghrib', icon:'🌇'},
+  {key:'isha',    ar:'العشاء', en:'Isha',    icon:'🌙'}
+];
+
+/* ═══════════════════════════════════════════════════════
+   HELPERS (بدائل ES5 لميزات ES6 غير المدعومة)
+═══════════════════════════════════════════════════════ */
+function cloneObj(o){
+  var r = {}, k;
+  for(k in o){ if(o.hasOwnProperty(k)) r[k] = o[k]; }
+  return r;
+}
+function extendObj(target, source){
+  var k;
+  if(source){
+    for(k in source){ if(source.hasOwnProperty(k)) target[k] = source[k]; }
+  }
+  return target;
+}
+function findByKey(arr, key){
+  var i;
+  for(i=0;i<arr.length;i++){ if(arr[i].key===key) return arr[i]; }
+  return null;
+}
+function findIndexByName(arr, name){
+  var i;
+  for(i=0;i<arr.length;i++){ if(arr[i].name===name) return i; }
+  return -1;
+}
+function pad2(n){
+  n = Math.floor(n);
+  return (n<10?'0':'') + n;
+}
+
+/* ═══════════════════════════════════════════════════════
    STATE — مع حفظ تلقائي في localStorage
 ═══════════════════════════════════════════════════════ */
 
-const DEFAULT_STATE = {
+var DEFAULT_STATE = {
   lat:21.39, lng:39.85, tz:3,
   cityName:'مكة المكرمة', countryName:'السعودية',
   methodIdx:0,
@@ -509,223 +498,245 @@ const DEFAULT_STATE = {
   notify:{fajr:true,sunrise:false,dhuhr:true,asr:true,maghrib:true,isha:true},
   adj:   {fajr:0,sunrise:0,dhuhr:0,asr:0,maghrib:0,isha:0},
   adjTmp:{fajr:0,sunrise:0,dhuhr:0,asr:0,maghrib:0,isha:0},
-  played:{},
+  played:{}
 };
 
-/* تحميل الإعدادات المحفوظة */
 function loadState(){
+  var saved, parsed, state;
   try{
-    const saved = localStorage.getItem('prayerAppState');
-    if(!saved) return {...DEFAULT_STATE};
-    const parsed = JSON.parse(saved);
-    /* دمج مع الافتراضي لضمان وجود كل المفاتيح */
-    return {
-      ...DEFAULT_STATE,
-      ...parsed,
-      notify: {...DEFAULT_STATE.notify, ...(parsed.notify||{})},
-      adj:    {...DEFAULT_STATE.adj,    ...(parsed.adj||{})},
-      adjTmp: {...DEFAULT_STATE.adjTmp, ...(parsed.adjTmp||{})},
-      played: {}, /* played يُصفَّر دائماً عند الفتح */
-    };
-  }catch(e){ return {...DEFAULT_STATE}; }
+    saved = localStorage.getItem('prayerAppState');
+    if(!saved) return cloneObj(DEFAULT_STATE);
+    parsed = JSON.parse(saved);
+    state = cloneObj(DEFAULT_STATE);
+    state = extendObj(state, parsed);
+    state.notify = extendObj(cloneObj(DEFAULT_STATE.notify), parsed.notify);
+    state.adj    = extendObj(cloneObj(DEFAULT_STATE.adj),    parsed.adj);
+    state.adjTmp = extendObj(cloneObj(DEFAULT_STATE.adjTmp), parsed.adjTmp);
+    state.played = {};
+    return state;
+  }catch(e){
+    return cloneObj(DEFAULT_STATE);
+  }
 }
 
-/* حفظ الإعدادات (بدون played لأنها مؤقتة) */
 function saveState(){
   try{
-    const toSave = {
-      lat:       S.lat,
-      lng:       S.lng,
-      tz:        S.tz,
-      cityName:  S.cityName,
-      countryName:S.countryName,
-      methodIdx: S.methodIdx,
-      muezzinIdx:S.muezzinIdx,
-      azanOn:    S.azanOn,
-      notify:    S.notify,
-      adj:       S.adj,
-      adjTmp:    S.adjTmp,
+    var toSave = {
+      lat: S.lat, lng: S.lng, tz: S.tz,
+      cityName: S.cityName, countryName: S.countryName,
+      methodIdx: S.methodIdx, muezzinIdx: S.muezzinIdx,
+      azanOn: S.azanOn, notify: S.notify, adj: S.adj, adjTmp: S.adjTmp
     };
     localStorage.setItem('prayerAppState', JSON.stringify(toSave));
   }catch(e){}
 }
 
-let S = loadState();
-let currentAudio = null;
+var S = loadState();
+var currentAudio = null;
 
 /* ═══ STARS ═══ */
-for(let i=0;i<110;i++){
-  const s=document.createElement('div'); s.className='star';
-  const z=Math.random()*2.5+.5;
-  s.style.cssText=`width:${z}px;height:${z}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${2+Math.random()*3}s;animation-delay:${Math.random()*4}s;`;
-  document.body.appendChild(s);
-}
+(function(){
+  var i, s, z, dur, delay;
+  for(i=0;i<110;i++){
+    s = document.createElement('div'); s.className='star';
+    z = Math.random()*2.5+.5;
+    dur = 2+Math.random()*3;
+    delay = Math.random()*4;
+    s.style.cssText =
+      'width:'+z+'px;height:'+z+'px;top:'+(Math.random()*100)+'%;left:'+(Math.random()*100)+'%;'+
+      '-webkit-animation-delay:'+delay+'s;animation-delay:'+delay+'s;'+
+      '-webkit-animation-duration:'+dur+'s;animation-duration:'+dur+'s;';
+    document.body.appendChild(s);
+  }
+})();
 
 /* ═══════════════════════════════════════════════════════
    MUEZZIN
 ═══════════════════════════════════════════════════════ */
-
-/* تحديث src عنصري الصوت بناءً على المؤذن المختار */
 function loadMuezzinAudio(){
-  const m = MUEZZINS[S.muezzinIdx];
-  document.getElementById('audioFajr').src   = m.fajr;   /* أذان الفجر  */
-  document.getElementById('audioNormal').src = m.file;   /* بقية الصلوات */
+  var m = MUEZZINS[S.muezzinIdx];
+  document.getElementById('audioFajr').src   = m.fajr;
+  document.getElementById('audioNormal').src = m.file;
   document.getElementById('audioFajr').load();
   document.getElementById('audioNormal').load();
 }
 
-/* بناء شبكة بطاقات المؤذنين */
 function buildMuezzinGrid(){
-  const grid=document.getElementById('muezzinGrid');
+  var grid = document.getElementById('muezzinGrid');
   grid.innerHTML='';
-  MUEZZINS.forEach((m,i)=>{
-    const c=document.createElement('div');
-    c.className='mcard'+(i===S.muezzinIdx?' selected':'');
-    c.onclick=()=>selectMuezzin(i);
-    c.innerHTML=`
-      <span class="mcard-icon">${m.icon}</span>
-      <div class="mcard-name">${m.name}</div>
-      <div class="mcard-sub">${m.sub}</div>
-    `;
+  MUEZZINS.forEach(function(m,i){
+    var c = document.createElement('div');
+    c.className = 'mcard'+(i===S.muezzinIdx?' selected':'');
+    c.onclick = function(){ selectMuezzin(i); };
+    c.innerHTML =
+      '<span class="mcard-icon">'+m.icon+'</span>'+
+      '<div class="mcard-name">'+m.name+'</div>'+
+      '<div class="mcard-sub">'+m.sub+'</div>';
     grid.appendChild(c);
   });
   checkFiles();
 }
 
-/* اختيار مؤذن */
 function selectMuezzin(i){
-  S.muezzinIdx=i;
+  S.muezzinIdx = i;
   stopAzan();
   loadMuezzinAudio();
   buildMuezzinGrid();
   saveState();
-  document.getElementById('methodNote').textContent=
-    `طريقة: ${METHODS[S.methodIdx].name} · مؤذن: ${MUEZZINS[S.muezzinIdx].name}`;
+  document.getElementById('methodNote').textContent =
+    'طريقة: '+METHODS[S.methodIdx].name+' · مؤذن: '+MUEZZINS[S.muezzinIdx].name;
   showToast('تم اختيار: '+MUEZZINS[i].name);
 }
 
-/* فحص وجود الملفين للمؤذن المختار */
+function checkFileExists(url, cb){
+  try{
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', url, true);
+    xhr.onreadystatechange = function(){
+      if(xhr.readyState===4){ cb(xhr.status>=200 && xhr.status<400); }
+    };
+    xhr.onerror = function(){ cb(false); };
+    xhr.send();
+  }catch(e){ cb(false); }
+}
+
 function checkFiles(){
-  const list=document.getElementById('fileStatusList');
+  var list = document.getElementById('fileStatusList');
   list.innerHTML='';
-  const m=MUEZZINS[S.muezzinIdx];
-
-  /* الملفان المطلوبان للمؤذن الحالي */
-  const files=[
-    {label:'الفجر',                  fname:m.fajr},
-    {label:'الظهر / العصر / المغرب / العشاء', fname:m.file},
+  var m = MUEZZINS[S.muezzinIdx];
+  var files = [
+    {label:'الفجر', fname:m.fajr},
+    {label:'الظهر / العصر / المغرب / العشاء', fname:m.file}
   ];
-
-  files.forEach(({label,fname})=>{
-    const row=document.createElement('div');
-    row.className='file-row chk';
-    row.innerHTML=`<span>⏳</span><span>${label}</span><span class="file-name">${fname}</span>`;
+  files.forEach(function(item){
+    var label = item.label, fname = item.fname;
+    var row = document.createElement('div');
+    row.className = 'file-row chk';
+    row.innerHTML = '<span>⏳</span><span>'+label+'</span><span class="file-name">'+fname+'</span>';
     list.appendChild(row);
-    fetch(fname,{method:'HEAD'})
-      .then(r=>{
-        row.className='file-row '+(r.ok?'ok':'miss');
-        row.innerHTML=r.ok
-          ?`<span>✓</span><span>${label}</span><span class="file-name">${fname}</span>`
-          :`<span>✗</span><span>${label} — الملف غير موجود</span><span class="file-name">${fname}</span>`;
-      }).catch(()=>{
-        row.className='file-row miss';
-        row.innerHTML=`<span>✗</span><span>${label} — الملف غير موجود</span><span class="file-name">${fname}</span>`;
-      });
+    checkFileExists(fname, function(ok){
+      if(ok){
+        row.className = 'file-row ok';
+        row.innerHTML = '<span>✓</span><span>'+label+'</span><span class="file-name">'+fname+'</span>';
+      } else {
+        row.className = 'file-row miss';
+        row.innerHTML = '<span>✗</span><span>'+label+' — الملف غير موجود</span><span class="file-name">'+fname+'</span>';
+      }
+    });
   });
 }
 
-/* اختبار الأذان */
 function testAzan(){
-  const times=calcTimes();
-  const now=new Date();
-  const nowM=now.getHours()*60+now.getMinutes();
-  let best='dhuhr',bestD=Infinity;
-  PRAYERS_META.forEach(p=>{
-    if(p.key==='sunrise')return;
-    const tm=s2m(f2s(times[p.key]));
-    if(!isNaN(tm)&&Math.abs(tm-nowM)<bestD){bestD=Math.abs(tm-nowM);best=p.key;}
+  var times = calcTimes();
+  var now = new Date();
+  var nowM = now.getHours()*60+now.getMinutes();
+  var best = 'dhuhr', bestD = Infinity;
+  PRAYERS_META.forEach(function(p){
+    var tm;
+    if(p.key==='sunrise') return;
+    tm = s2m(f2s(times[p.key]));
+    if(!isNaN(tm) && Math.abs(tm-nowM)<bestD){ bestD=Math.abs(tm-nowM); best=p.key; }
   });
-  const meta=PRAYERS_META.find(p=>p.key===best);
-  playAzan(meta.ar, best);
+  var meta = findByKey(PRAYERS_META, best);
+  if(meta) playAzan(meta.ar, best);
 }
 
 /* ═══════════════════════════════════════════════════════
    SELECTS
 ═══════════════════════════════════════════════════════ */
 function buildSelects(){
-  const cs=document.getElementById('countrySelect');
-  Object.keys(CITIES).forEach(c=>{const o=document.createElement('option');o.value=o.textContent=c;cs.appendChild(o);});
-  /* اختر الدولة المحفوظة */
-  cs.value=S.countryName;
+  var cs = document.getElementById('countrySelect');
+  var keys = Object.keys(CITIES);
+  var i, o, cities, cityIdx, ms;
+  for(i=0;i<keys.length;i++){
+    o = document.createElement('option');
+    o.value = keys[i]; o.textContent = keys[i];
+    cs.appendChild(o);
+  }
+  cs.value = S.countryName;
   buildCitySelect(S.countryName);
-  /* اختر المدينة المحفوظة */
-  const cities=CITIES[S.countryName]||[];
-  const cityIdx=cities.findIndex(c=>c.name===S.cityName);
-  if(cityIdx>=0) document.getElementById('citySelect').value=cityIdx;
-  /* طريقة الحساب */
-  const ms=document.getElementById('methodSelect');
-  METHODS.forEach((m,i)=>{const o=document.createElement('option');o.value=i;o.textContent=m.name;ms.appendChild(o);});
-  ms.value=S.methodIdx;
+  cities = CITIES[S.countryName]||[];
+  cityIdx = findIndexByName(cities, S.cityName);
+  if(cityIdx>=0) document.getElementById('citySelect').value = cityIdx;
+  ms = document.getElementById('methodSelect');
+  for(i=0;i<METHODS.length;i++){
+    o = document.createElement('option');
+    o.value = i; o.textContent = METHODS[i].name;
+    ms.appendChild(o);
+  }
+  ms.value = S.methodIdx;
 }
 function buildCitySelect(country){
-  const cs=document.getElementById('citySelect'); cs.innerHTML='';
-  (CITIES[country]||[]).forEach((c,i)=>{const o=document.createElement('option');o.value=i;o.textContent=c.name;cs.appendChild(o);});
+  var cs = document.getElementById('citySelect'); cs.innerHTML='';
+  var arr = CITIES[country]||[];
+  var i, o;
+  for(i=0;i<arr.length;i++){
+    o = document.createElement('option');
+    o.value = i; o.textContent = arr[i].name;
+    cs.appendChild(o);
+  }
 }
 function onCountryChange(){
-  const cn=document.getElementById('countrySelect').value;
-  S.countryName=cn; buildCitySelect(cn);
-  const c=(CITIES[cn]||[])[0];
-  if(c){S.lat=c.lat;S.lng=c.lng;S.tz=c.tz;S.cityName=c.name;}
+  var cn = document.getElementById('countrySelect').value;
+  var c;
+  S.countryName = cn; buildCitySelect(cn);
+  c = (CITIES[cn]||[])[0];
+  if(c){ S.lat=c.lat; S.lng=c.lng; S.tz=c.tz; S.cityName=c.name; }
   saveState(); updateAll();
 }
 function onCityChange(){
-  const cn=document.getElementById('countrySelect').value;
-  const c=CITIES[cn][parseInt(document.getElementById('citySelect').value)];
-  S.lat=c.lat;S.lng=c.lng;S.tz=c.tz;S.cityName=c.name;S.countryName=cn;
+  var cn = document.getElementById('countrySelect').value;
+  var c = CITIES[cn][parseInt(document.getElementById('citySelect').value,10)];
+  S.lat=c.lat; S.lng=c.lng; S.tz=c.tz; S.cityName=c.name; S.countryName=cn;
   saveState(); updateAll();
 }
-function onMethodChange(){S.methodIdx=parseInt(document.getElementById('methodSelect').value);saveState();updateAll();}
+function onMethodChange(){
+  S.methodIdx = parseInt(document.getElementById('methodSelect').value,10);
+  saveState(); updateAll();
+}
 function applyManual(){
-  const lt=parseFloat(document.getElementById('manLat').value);
-  const ln=parseFloat(document.getElementById('manLng').value);
-  const tz=parseFloat(document.getElementById('manTz').value);
-  if(isNaN(lt)||isNaN(ln)){alert('الرجاء إدخال الإحداثيات');return;}
-  S.lat=lt;S.lng=ln;S.tz=isNaN(tz)?3:tz;
-  S.cityName=`${lt.toFixed(2)},${ln.toFixed(2)}`;S.countryName='مخصص';
+  var lt = parseFloat(document.getElementById('manLat').value);
+  var ln = parseFloat(document.getElementById('manLng').value);
+  var tz = parseFloat(document.getElementById('manTz').value);
+  if(isNaN(lt)||isNaN(ln)){ alert('الرجاء إدخال الإحداثيات'); return; }
+  S.lat=lt; S.lng=ln; S.tz=isNaN(tz)?3:tz;
+  S.cityName = lt.toFixed(2)+','+ln.toFixed(2); S.countryName='مخصص';
   saveState(); updateAll();
 }
 
 /* ═══ ADJ ═══ */
 function buildAdjRows(){
-  const w=document.getElementById('adjRows');w.innerHTML='';
-  PRAYERS_META.forEach(p=>{
-    const v=S.adjTmp[p.key]||0;
-    const r=document.createElement('div');r.className='adj-row';
-    r.innerHTML=`
-      <span class="adj-lbl">${p.ar}</span>
-      <input type="range" min="-30" max="30" step="1" value="${v}"
-             oninput="liveAdj('${p.key}',this.value)">
-      <span class="adj-val" id="adjv_${p.key}">${v>=0?'+'+v:v}د</span>
-    `;
+  var w = document.getElementById('adjRows'); w.innerHTML='';
+  PRAYERS_META.forEach(function(p){
+    var v = S.adjTmp[p.key]||0;
+    var r = document.createElement('div'); r.className='adj-row';
+    r.innerHTML =
+      '<span class="adj-lbl">'+p.ar+'</span>'+
+      '<input type="range" min="-30" max="30" step="1" value="'+v+'" oninput="liveAdj(\''+p.key+'\',this.value)">'+
+      '<span class="adj-val" id="adjv_'+p.key+'">'+(v>=0?('+'+v):v)+'د</span>';
     w.appendChild(r);
   });
 }
 function liveAdj(k,v){
-  S.adjTmp[k]=parseInt(v);
-  document.getElementById('adjv_'+k).textContent=(v>=0?'+':'')+v+'د';
+  S.adjTmp[k] = parseInt(v,10);
+  document.getElementById('adjv_'+k).textContent = (v>=0?'+':'')+v+'د';
 }
 function applyAdj(){
-  PRAYERS_META.forEach(p=>{S.adj[p.key]=S.adjTmp[p.key];});
+  PRAYERS_META.forEach(function(p){ S.adj[p.key] = S.adjTmp[p.key]; });
   saveState(); updateAll(); showToast('تم تطبيق التعديلات ✓');
 }
 
 /* ═══ PANELS ═══ */
 function togglePanel(id){
-  const p=document.getElementById(id);
-  const open=p.classList.contains('open');
-  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('open'));
+  var p = document.getElementById(id);
+  var open = p.className.indexOf('open')!==-1;
+  var panels = document.querySelectorAll('.panel');
+  var i;
+  for(i=0;i<panels.length;i++){
+    panels[i].className = panels[i].className.replace(/\s*\bopen\b/g,'');
+  }
   if(!open){
-    p.classList.add('open');
+    p.className = p.className + ' open';
     if(id==='adjPanel')     buildAdjRows();
     if(id==='muezzinPanel') buildMuezzinGrid();
   }
@@ -734,235 +745,277 @@ function togglePanel(id){
 /* ═══════════════════════════════════════════════════════
    CALC
 ═══════════════════════════════════════════════════════ */
-const R=d=>d*Math.PI/180, D=r=>r*180/Math.PI;
+function R(d){ return d*Math.PI/180; }
+function D(r){ return r*180/Math.PI; }
 function jd(date){
-  let y=date.getFullYear(),m=date.getMonth()+1,d=date.getDate();
-  if(m<=2){y--;m+=12;}
-  const A=Math.floor(y/100),B=2-A+Math.floor(A/4);
+  var y=date.getFullYear(), m=date.getMonth()+1, d=date.getDate(), A, B;
+  if(m<=2){ y--; m+=12; }
+  A = Math.floor(y/100); B = 2-A+Math.floor(A/4);
   return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5;
 }
 function sun(j){
-  const d=j-2451545,g=(357.529+.9856*d)%360,q=(280.459+.9856*d)%360;
-  const L=(q+1.915*Math.sin(R(g))+.02*Math.sin(R(2*g)))%360,e=23.439-.0000004*d;
-  const RA=D(Math.atan2(Math.cos(R(e))*Math.sin(R(L)),Math.cos(R(L))))/15;
-  return{decl:D(Math.asin(Math.sin(R(e))*Math.sin(R(L)))),eqT:(q/15-RA)*60};
+  var d=j-2451545, g=(357.529+.9856*d)%360, q=(280.459+.9856*d)%360;
+  var L=(q+1.915*Math.sin(R(g))+.02*Math.sin(R(2*g)))%360, e=23.439-.0000004*d;
+  var RA=D(Math.atan2(Math.cos(R(e))*Math.sin(R(L)),Math.cos(R(L))))/15;
+  return { decl:D(Math.asin(Math.sin(R(e))*Math.sin(R(L)))), eqT:(q/15-RA)*60 };
 }
 function aH(a,dec,lat){
-  const d=R(dec),L=R(lat);
-  const c=(Math.cos(R(90+a))-Math.sin(d)*Math.sin(L))/(Math.cos(d)*Math.cos(L));
+  var d=R(dec), L=R(lat);
+  var c=(Math.cos(R(90+a))-Math.sin(d)*Math.sin(L))/(Math.cos(d)*Math.cos(L));
   return Math.abs(c)>1?NaN:D(Math.acos(c))/15;
 }
 function asrH(sf,dec,lat){
-  const d=R(dec),L=R(lat),a=Math.atan(1/(sf+Math.tan(Math.abs(d-L))));
-  const c=(Math.sin(a)-Math.sin(d)*Math.sin(L))/(Math.cos(d)*Math.cos(L));
+  var d=R(dec), L=R(lat), a=Math.atan(1/(sf+Math.tan(Math.abs(d-L))));
+  var c=(Math.sin(a)-Math.sin(d)*Math.sin(L))/(Math.cos(d)*Math.cos(L));
   return Math.abs(c)>1?NaN:D(Math.acos(c))/15;
 }
 function calcTimes(){
-  const now=new Date(),{decl,eqT}=sun(jd(now));
-  const noon=12-(S.lng/15)-eqT/60+S.tz;
-  const mt=METHODS[S.methodIdx],sr=aH(.833,decl,S.lat);
-  const ishaFix=typeof mt.isha==='string'&&mt.isha.startsWith('fix:');
-  const raw={
+  var now = new Date();
+  var sunInfo = sun(jd(now));
+  var decl = sunInfo.decl, eqT = sunInfo.eqT;
+  var noon = 12-(S.lng/15)-eqT/60+S.tz;
+  var mt = METHODS[S.methodIdx];
+  var sr = aH(.833,decl,S.lat);
+  var ishaFix = (typeof mt.isha==='string') && (mt.isha.indexOf('fix:')===0);
+  var raw = {
     fajr:    noon-aH(mt.fajr,decl,S.lat),
-    sunrise: noon-sr, dhuhr:noon+.033,
+    sunrise: noon-sr,
+    dhuhr:   noon+.033,
     asr:     noon+asrH(1,decl,S.lat),
     maghrib: noon+sr,
-    isha:    ishaFix?noon+sr+parseFloat(mt.isha.split(':')[1])/60:noon+aH(mt.isha,decl,S.lat),
+    isha:    ishaFix ? (noon+sr+parseFloat(mt.isha.split(':')[1])/60) : (noon+aH(mt.isha,decl,S.lat))
   };
-  const t={};
-  PRAYERS_META.forEach(p=>{t[p.key]=raw[p.key]+(S.adj[p.key]||0)/60;});
+  var t = {};
+  PRAYERS_META.forEach(function(p){
+    t[p.key] = raw[p.key] + (S.adj[p.key]||0)/60;
+  });
   return t;
 }
 function f2s(f){
-  if(isNaN(f))return'--:--';
-  f=((f%24)+24)%24;
-  const h=Math.floor(f),m=Math.round((f-h)*60);
-  if(m===60)return`${(h+1).toString().padStart(2,'0')}:00`;
-  return`${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+  var h, m;
+  if(isNaN(f)) return '--:--';
+  f = ((f%24)+24)%24;
+  h = Math.floor(f); m = Math.round((f-h)*60);
+  if(m===60) return pad2(h+1)+':00';
+  return pad2(h)+':'+pad2(m);
 }
-function s2m(s){if(s==='--:--')return NaN;const[h,m]=s.split(':').map(Number);return h*60+m;}
-function hijri(d){try{return new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{day:'numeric',month:'long',year:'numeric'}).format(d);}catch{return'';}}
+function s2m(s){
+  var parts;
+  if(s==='--:--') return NaN;
+  parts = s.split(':');
+  return parseInt(parts[0],10)*60 + parseInt(parts[1],10);
+}
+function hijri(d){
+  try{
+    return new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{day:'numeric',month:'long',year:'numeric'}).format(d);
+  }catch(e){
+    return '';
+  }
+}
 
 /* ═══════════════════════════════════════════════════════
    RENDER
 ═══════════════════════════════════════════════════════ */
 function updateAll(){
-  const now=new Date();
-  const days=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
-  const months=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-  document.getElementById('dateGr').textContent=
-    `${days[now.getDay()]}، ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} — ${S.cityName}`;
-  document.getElementById('dateHi').textContent=hijri(now);
-  document.getElementById('methodNote').textContent=
-    `طريقة: ${METHODS[S.methodIdx].name} · مؤذن: ${MUEZZINS[S.muezzinIdx].name}`;
+  var now = new Date();
+  var days = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  var months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  var times, nowM, nextKey, nextM, nextMeta, diff, hh, mm, ss;
+  var list, i, p, ts, tm, passed, active, av, ab, card, key, ni;
 
-  const times=calcTimes();
-  const nowM=now.getHours()*60+now.getMinutes()+now.getSeconds()/60;
+  document.getElementById('dateGr').textContent =
+    days[now.getDay()]+'، '+now.getDate()+' '+months[now.getMonth()]+' '+now.getFullYear()+' — '+S.cityName;
+  document.getElementById('dateHi').textContent = hijri(now);
+  document.getElementById('methodNote').textContent =
+    'طريقة: '+METHODS[S.methodIdx].name+' · مؤذن: '+MUEZZINS[S.muezzinIdx].name;
 
-  /* الصلاة القادمة */
-  let nextKey=null,nextM=Infinity;
-  PRAYERS_META.forEach(p=>{
-    const tm=s2m(f2s(times[p.key]));
-    if(!isNaN(tm)&&tm>nowM&&tm<nextM){nextM=tm;nextKey=p.key;}
+  times = calcTimes();
+  nowM = now.getHours()*60 + now.getMinutes() + now.getSeconds()/60;
+
+  nextKey = null; nextM = Infinity;
+  PRAYERS_META.forEach(function(p2){
+    var tm2 = s2m(f2s(times[p2.key]));
+    if(!isNaN(tm2) && tm2>nowM && tm2<nextM){ nextM=tm2; nextKey=p2.key; }
   });
-  if(!nextKey){nextKey='fajr';nextM=s2m(f2s(times.fajr))+1440;}
-  document.getElementById('nextName').textContent=PRAYERS_META.find(p=>p.key===nextKey)?.ar||'—';
-  const diff=(nextM-nowM)*60;
-  const hh=Math.floor(diff/3600),mm=Math.floor((diff%3600)/60),ss=Math.floor(diff%60);
-  document.getElementById('countdown').textContent=
-    `${hh.toString().padStart(2,'0')}:${mm.toString().padStart(2,'0')}:${ss.toString().padStart(2,'0')}`;
+  if(!nextKey){ nextKey='fajr'; nextM = s2m(f2s(times.fajr))+1440; }
 
-  /* بطاقات الصلوات */
-  const list=document.getElementById('prayersList'); list.innerHTML='';
-  PRAYERS_META.forEach(p=>{
-    const ts=f2s(times[p.key]),tm=s2m(ts);
-    const passed=!isNaN(tm)&&tm<=Math.floor(nowM);
-    const active=p.key===nextKey;
-    const av=S.adj[p.key]||0;
-    const ab=av!==0?`<span style="font-size:10px;color:var(--gold);margin-left:4px;">${av>0?'+':''}${av}د</span>`:'';
-    const card=document.createElement('div');
-    card.className=`pcard${active?' active':''}${passed&&!active?' passed':''}`;
-    card.innerHTML=`
-      <div class="pcard-left">
-        <div class="picon">${p.icon}</div>
-        <div>
-          <span class="pname-ar">${p.ar}</span>
-          <span class="pname-en">${p.en}</span>
-        </div>
-      </div>
-      <div class="pcard-right">
-        ${ab}
-        <span class="ptime">${ts}</span>
-        ${p.key!=='sunrise'
-          ?`<button class="notif-btn${S.notify[p.key]?' on':''}" onclick="toggleNotify('${p.key}',this)">${S.notify[p.key]?'🔔':'🔕'}</button>`
-          :''}
-      </div>
-    `;
+  nextMeta = findByKey(PRAYERS_META, nextKey);
+  document.getElementById('nextName').textContent = nextMeta ? nextMeta.ar : '—';
+
+  diff = (nextM-nowM)*60;
+  hh = Math.floor(diff/3600); mm = Math.floor((diff%3600)/60); ss = Math.floor(diff%60);
+  document.getElementById('countdown').textContent = pad2(hh)+':'+pad2(mm)+':'+pad2(ss);
+
+  list = document.getElementById('prayersList'); list.innerHTML='';
+
+  for(i=0;i<PRAYERS_META.length;i++){
+    p = PRAYERS_META[i];
+    ts = f2s(times[p.key]); tm = s2m(ts);
+    passed = !isNaN(tm) && tm<=Math.floor(nowM);
+    active = (p.key===nextKey);
+    av = S.adj[p.key]||0;
+    ab = av!==0 ? ('<span style="font-size:10px;color:#c9a84c;margin-left:4px;">'+(av>0?'+':'')+av+'د</span>') : '';
+    card = document.createElement('div');
+    card.className = 'pcard'+(active?' active':'')+((passed&&!active)?' passed':'');
+    card.innerHTML =
+      '<div class="pcard-left">'+
+        '<div class="picon">'+p.icon+'</div>'+
+        '<div>'+
+          '<span class="pname-ar">'+p.ar+'</span>'+
+          '<span class="pname-en">'+p.en+'</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="pcard-right">'+
+        ab+
+        '<span class="ptime">'+ts+'</span>'+
+        (p.key!=='sunrise'
+          ? '<button class="notif-btn'+(S.notify[p.key]?' on':'')+'" onclick="toggleNotify(\''+p.key+'\',this)">'+(S.notify[p.key]?'🔔':'🔕')+'</button>'
+          : '')+
+      '</div>';
     list.appendChild(card);
 
-    /* تشغيل الأذان عند دخول الوقت */
-    if(S.azanOn&&S.notify[p.key]&&p.key!=='sunrise'){
-      const key=`${now.toDateString()}-${p.key}`;
-      const ni=now.getHours()*60+now.getMinutes();
-      if(!isNaN(tm)&&Math.abs(ni-tm)<1&&!S.played[key]){
-        S.played[key]=true;
+    if(S.azanOn && S.notify[p.key] && p.key!=='sunrise'){
+      key = now.toDateString()+'-'+p.key;
+      ni = now.getHours()*60+now.getMinutes();
+      if(!isNaN(tm) && Math.abs(ni-tm)<1 && !S.played[key]){
+        S.played[key] = true;
         playAzan(p.ar,p.key);
       }
     }
-  });
+  }
 }
 
 /* ═══════════════════════════════════════════════════════
    AZAN PLAYBACK
-   — الفجر   → audioFajr   (mekkalfajr.mp3 مثلاً)
-   — الباقي  → audioNormal (mekka.mp3 مثلاً)
 ═══════════════════════════════════════════════════════ */
 function playAzan(name,key){
-  if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}
-
-  /* اختر العنصر الصحيح */
-  const el=document.getElementById(key==='fajr'?'audioFajr':'audioNormal');
+  var el, playResult;
+  if(currentAudio){ currentAudio.pause(); currentAudio.currentTime=0; }
+  el = document.getElementById(key==='fajr' ? 'audioFajr' : 'audioNormal');
 
   document.getElementById('azanDot').classList.add('playing');
-  document.getElementById('azanTxt').textContent=`🕌 الأذان — حان وقت صلاة ${name}`;
+  document.getElementById('azanTxt').textContent = '🕌 الأذان — حان وقت صلاة '+name;
   document.getElementById('stopBtn').style.display='inline-block';
 
-  /* تحقق أن الـ src محدد */
-  if(!el.src||el.src===window.location.href){
-    playBeeps(); return;
-  }
+  if(!el.src || el.src===window.location.href){ playBeeps(); return; }
 
-  currentAudio=el;
-  currentAudio.currentTime=0;
-  currentAudio.play()
-    .then(()=>{currentAudio.onended=stopAzan;})
-    .catch(()=>playBeeps());
+  currentAudio = el;
+  currentAudio.currentTime = 0;
+  currentAudio.onended = stopAzan;
+  try{
+    playResult = currentAudio.play();
+    if(playResult && typeof playResult.then==='function'){
+      playResult.then(function(){}, function(){ playBeeps(); });
+    }
+  }catch(e){ playBeeps(); }
 }
 
 function playBeeps(){
+  var ctx, freqs, i, o, g, t;
   try{
-    const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    [1,.9,1.1,.9,1.2,.9,1,.9].forEach((f,i)=>{
-      const o=ctx.createOscillator(),g=ctx.createGain();
-      o.connect(g);g.connect(ctx.destination);
-      o.type='sine';o.frequency.value=440*f;
-      const t=ctx.currentTime+i*.55;
-      g.gain.setValueAtTime(.28,t);g.gain.exponentialRampToValueAtTime(.001,t+.45);
-      o.start(t);o.stop(t+.5);
-    });
+    ctx = new (window.AudioContext||window.webkitAudioContext)();
+    freqs = [1,.9,1.1,.9,1.2,.9,1,.9];
+    for(i=0;i<freqs.length;i++){
+      o = ctx.createOscillator(); g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type='sine'; o.frequency.value = 440*freqs[i];
+      t = ctx.currentTime + i*.55;
+      g.gain.setValueAtTime(.28,t);
+      g.gain.exponentialRampToValueAtTime(.001,t+.45);
+      o.start(t); o.stop(t+.5);
+    }
     setTimeout(stopAzan,5000);
-  }catch(e){stopAzan();}
+  }catch(e){ stopAzan(); }
 }
 
 function stopAzan(){
-  if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;currentAudio=null;}
+  if(currentAudio){ currentAudio.pause(); currentAudio.currentTime=0; currentAudio=null; }
   document.getElementById('azanDot').classList.remove('playing');
   document.getElementById('azanTxt').textContent='الإشعارات مفعّلة — سيرفع الأذان عند دخول وقت الصلاة';
   document.getElementById('stopBtn').style.display='none';
 }
 
 function toggleAzan(){
-  S.azanOn=!S.azanOn;
-  const c=document.getElementById('azanChip');
-  c.textContent=S.azanOn?'🔔 الأذان مفعّل':'🔕 الأذان موقوف';
+  var c;
+  S.azanOn = !S.azanOn;
+  c = document.getElementById('azanChip');
+  c.textContent = S.azanOn?'🔔 الأذان مفعّل':'🔕 الأذان موقوف';
   c.classList.toggle('on',S.azanOn);
-  document.getElementById('azanTxt').textContent=S.azanOn
-    ?'الإشعارات مفعّلة — سيرفع الأذان عند دخول وقت الصلاة':'الأذان موقوف مؤقتاً';
+  document.getElementById('azanTxt').textContent = S.azanOn
+    ? 'الإشعارات مفعّلة — سيرفع الأذان عند دخول وقت الصلاة' : 'الأذان موقوف مؤقتاً';
   saveState();
 }
 
 function toggleNotify(k,btn){
-  S.notify[k]=!S.notify[k];
-  btn.textContent=S.notify[k]?'🔔':'🔕';
+  S.notify[k] = !S.notify[k];
+  btn.textContent = S.notify[k]?'🔔':'🔕';
   btn.classList.toggle('on',S.notify[k]);
   saveState();
 }
 
 /* ═══ TOAST ═══ */
 function showToast(msg){
-  let t=document.getElementById('toast');
+  var t = document.getElementById('toast');
   if(!t){
-    t=document.createElement('div');t.id='toast';
-    t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);'+
-      'background:rgba(201,168,76,.92);color:#0a1628;font-family:Cairo,sans-serif;'+
+    t = document.createElement('div'); t.id='toast';
+    t.style.cssText =
+      'position:fixed;bottom:24px;left:50%;'+
+      '-webkit-transform:translateX(-50%);transform:translateX(-50%);'+
+      'background:rgba(201,168,76,.92);color:#0a1628;font-family:Arial,sans-serif;'+
       'font-size:13px;padding:8px 22px;border-radius:20px;z-index:999;'+
-      'transition:opacity .4s;pointer-events:none;white-space:nowrap;';
+      'pointer-events:none;white-space:nowrap;';
     document.body.appendChild(t);
   }
-  t.textContent=msg;t.style.opacity='1';
-  clearTimeout(t._t);t._t=setTimeout(()=>t.style.opacity='0',2500);
+  t.textContent = msg; t.style.opacity='1';
+  clearTimeout(t._t);
+  t._t = setTimeout(function(){ t.style.opacity='0'; }, 2500);
 }
 
 /* ═══ GEOLOC ═══ */
 if(navigator.geolocation){
-  navigator.geolocation.getCurrentPosition(pos=>{
-    S.lat=pos.coords.latitude; S.lng=pos.coords.longitude;
-    S.tz=-(new Date().getTimezoneOffset()/60);
-    S.cityName=`${S.lat.toFixed(2)},${S.lng.toFixed(2)}`;
-    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${S.lat}&lon=${S.lng}&format=json&accept-language=ar`)
-      .then(r=>r.json()).then(d=>{
-        const city=d.address?.city||d.address?.town||d.address?.village||'';
-        if(city)S.cityName=city;
-        updateAll();
-      }).catch(()=>updateAll());
-  },()=>updateAll());
+  navigator.geolocation.getCurrentPosition(function(pos){
+    var url, xhr;
+    S.lat = pos.coords.latitude; S.lng = pos.coords.longitude;
+    S.tz = -(new Date().getTimezoneOffset()/60);
+    S.cityName = S.lat.toFixed(2)+','+S.lng.toFixed(2);
+
+    url = 'https://nominatim.openstreetmap.org/reverse?lat='+S.lat+'&lon='+S.lng+'&format=json&accept-language=ar';
+    try{
+      xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState===4){
+          var d, addr, city;
+          if(xhr.status>=200 && xhr.status<400){
+            try{
+              d = JSON.parse(xhr.responseText);
+              addr = d.address || {};
+              city = addr.city || addr.town || addr.village || '';
+              if(city) S.cityName = city;
+            }catch(e){}
+          }
+          updateAll();
+        }
+      };
+      xhr.onerror = function(){ updateAll(); };
+      xhr.send();
+    }catch(e){ updateAll(); }
+  }, function(){ updateAll(); });
 }
 
 /* ═══ INIT ═══ */
 buildSelects();
 loadMuezzinAudio();
 
-/* استعادة واجهة المستخدم من الإعدادات المحفوظة */
 (function restoreUI(){
-  /* الأذان */
-  const azanChip=document.getElementById('azanChip');
-  azanChip.textContent=S.azanOn?'🔔 الأذان مفعّل':'🔕 الأذان موقوف';
+  var azanChip = document.getElementById('azanChip');
+  var bgBtn;
+  azanChip.textContent = S.azanOn?'🔔 الأذان مفعّل':'🔕 الأذان موقوف';
   azanChip.classList.toggle('on',S.azanOn);
   if(!S.azanOn) document.getElementById('azanTxt').textContent='الأذان موقوف مؤقتاً';
 
-  /* المؤذن */
-  const bgBtn=document.getElementById('bgBtn');
-  if(Notification.permission==='granted' && bgBtn){
+  bgBtn = document.getElementById('bgBtn');
+  if(typeof Notification!=='undefined' && Notification.permission==='granted' && bgBtn){
     bgBtn.textContent='🔔 الإشعارات مفعّلة';
     bgBtn.classList.add('on');
   }
@@ -972,83 +1025,108 @@ updateAll();
 setInterval(updateAll,1000);
 
 /* ══════════════════════════════════════════════════════════
-   PWA — Service Worker + إشعارات الخلفية
+   PWA — Service Worker + إشعارات الخلفية (تُتجاهل بأمان
+   على المتصفحات القديمة التي لا تدعمها)
 ══════════════════════════════════════════════════════════ */
 
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('./sw.js')
-    .then(reg=>console.log('SW registered'))
-    .catch(err=>console.log('SW error',err));
+  navigator.serviceWorker.register('./sw.js').then(function(reg){
+    console.log('SW registered');
+  }, function(err){
+    console.log('SW error', err);
+  });
 
-  /* استقبال أمر تشغيل الأذان من الإشعار */
-  navigator.serviceWorker.addEventListener('message',e=>{
-    if(e.data?.type==='PLAY_AZAN'){
-      const meta=PRAYERS_META.find(p=>p.key===e.data.key);
-      if(meta) playAzan(meta.ar,e.data.key);
+  navigator.serviceWorker.addEventListener('message', function(e){
+    var data = e.data || {};
+    var meta;
+    if(data.type==='PLAY_AZAN'){
+      meta = findByKey(PRAYERS_META, data.key);
+      if(meta) playAzan(meta.ar, data.key);
     }
   });
 }
 
-async function requestNotifPermission(){
-  if(!('Notification' in window)) return false;
-  if(Notification.permission==='granted') return true;
-  return (await Notification.requestPermission())==='granted';
+function requestNotifPermission(cb){
+  if(typeof Notification==='undefined'){ cb(false); return; }
+  if(Notification.permission==='granted'){ cb(true); return; }
+  try{
+    var result = Notification.requestPermission(function(perm){ cb(perm==='granted'); });
+    if(result && typeof result.then==='function'){
+      result.then(function(perm){ cb(perm==='granted'); });
+    }
+  }catch(e){ cb(false); }
 }
 
-async function schedulePrayersInSW(){
-  if(!('serviceWorker' in navigator)) return;
-  const reg=await navigator.serviceWorker.ready;
-  if(!reg.active) return;
-  const times=calcTimes();
-  const now=new Date();
-  const prayers=[];
-  PRAYERS_META.forEach(p=>{
-    if(p.key==='sunrise'||!S.notify[p.key]) return;
-    const ts=f2s(times[p.key]);
-    if(ts==='--:--') return;
-    const[h,m]=ts.split(':').map(Number);
-    const pt=new Date(now); pt.setHours(h,m,0,0);
-    if(pt.getTime()>Date.now()+30000)
-      prayers.push({key:p.key,name:p.ar,timeMs:pt.getTime()});
+function schedulePrayersInSW(cb){
+  if(!('serviceWorker' in navigator)){ if(cb) cb(); return; }
+  navigator.serviceWorker.ready.then(function(reg){
+    var times, now, prayers, i, p, ts, parts, h, m, pt;
+    if(!reg.active){ if(cb) cb(); return; }
+    times = calcTimes();
+    now = new Date();
+    prayers = [];
+    for(i=0;i<PRAYERS_META.length;i++){
+      p = PRAYERS_META[i];
+      if(p.key==='sunrise' || !S.notify[p.key]) continue;
+      ts = f2s(times[p.key]);
+      if(ts==='--:--') continue;
+      parts = ts.split(':');
+      h = parseInt(parts[0],10); m = parseInt(parts[1],10);
+      pt = new Date(now); pt.setHours(h,m,0,0);
+      if(pt.getTime() > Date.now()+30000){
+        prayers.push({key:p.key, name:p.ar, timeMs:pt.getTime()});
+      }
+    }
+    reg.active.postMessage({type:'SCHEDULE_PRAYERS', prayers:prayers});
+    if(cb) cb();
+  }, function(){ if(cb) cb(); });
+}
+
+function enableBgNotifications(){
+  requestNotifPermission(function(ok){
+    var btn;
+    if(ok){
+      schedulePrayersInSW(function(){
+        showToast('✓ سيُرفع الأذان حتى لو المتصفح في الخلفية');
+        btn = document.getElementById('bgBtn');
+        if(btn){ btn.textContent='🔔 الإشعارات مفعّلة'; btn.classList.add('on'); }
+      });
+    } else {
+      showToast('✗ يرجى السماح بالإشعارات من إعدادات المتصفح');
+    }
   });
-  reg.active.postMessage({type:'SCHEDULE_PRAYERS',prayers});
 }
 
-async function enableBgNotifications(){
-  const ok=await requestNotifPermission();
-  if(ok){
-    await schedulePrayersInSW();
-    showToast('✓ سيُرفع الأذان حتى لو المتصفح في الخلفية');
-    const btn=document.getElementById('bgBtn');
-    if(btn){btn.textContent='🔔 الإشعارات مفعّلة';btn.classList.add('on');}
-  } else {
-    showToast('✗ يرجى السماح بالإشعارات من إعدادات المتصفح');
+setInterval(function(){
+  if(typeof Notification!=='undefined' && Notification.permission==='granted' && S.azanOn){
+    schedulePrayersInSW();
   }
-}
-
-/* جدولة تلقائية كل دقيقة */
-setInterval(()=>{
-  if(Notification.permission==='granted'&&S.azanOn) schedulePrayersInSW();
 },60000);
-setTimeout(()=>{
-  if(Notification.permission==='granted'&&S.azanOn) schedulePrayersInSW();
+setTimeout(function(){
+  if(typeof Notification!=='undefined' && Notification.permission==='granted' && S.azanOn){
+    schedulePrayersInSW();
+  }
 },2000);
 
 /* زر تثبيت التطبيق */
-let _installPrompt=null;
-window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault(); _installPrompt=e;
-  const b=document.getElementById('installBtn');
+var _installPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e){
+  var b;
+  e.preventDefault();
+  _installPrompt = e;
+  b = document.getElementById('installBtn');
   if(b) b.style.display='flex';
 });
-async function installApp(){
+function installApp(){
   if(!_installPrompt) return;
   _installPrompt.prompt();
-  const r=await _installPrompt.userChoice;
-  if(r.outcome==='accepted') showToast('تم تثبيت التطبيق ✓');
-  _installPrompt=null;
-  const b=document.getElementById('installBtn');
-  if(b) b.style.display='none';
+  _installPrompt.userChoice.then(function(r){
+    var btn;
+    if(r.outcome==='accepted') showToast('تم تثبيت التطبيق ✓');
+    _installPrompt = null;
+    btn = document.getElementById('installBtn');
+    if(btn) btn.style.display='none';
+  });
 }
 </script>
 </body>
